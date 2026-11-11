@@ -1,0 +1,426 @@
+/* EVE LIBRARY · V14
+   V14 (2026-11-11): motion added at the end of this file — reveal order on the
+   home hero and the PAGE preview sheet. Everything above that block is V13.
+   V13: One stylesheet replacing style.css + editorial.css (V1–V12 layers).
+   Unchanged from V12: copy, page structure, approved logo raster, concept
+   photograph, navy / blue / silver palette, self-hosted SUIT. No remote assets. */
+
+@font-face{font-family:'SUIT';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/SUIT-Regular.woff2') format('woff2')}
+@font-face{font-family:'SUIT';font-style:normal;font-weight:500;font-display:swap;src:url('fonts/SUIT-Medium.woff2') format('woff2')}
+
+:root{
+  color-scheme:light;
+  --ink:#000022;
+  --ink-2:#3d3d53;
+  --muted:#585868;
+  --paper:#efefef;
+  --surface:#f8f8f8;
+  --line:#c9caca;
+  --line-soft:#dcddde;
+  --blue:#7daed3;
+  --blue-deep:#254f72;
+  --sans:'SUIT','Apple SD Gothic Neo','Malgun Gothic',Arial,sans-serif;
+  --serif:Georgia,'Times New Roman',serif;
+  --gutter:clamp(1.25rem,5.5vw,5rem);
+  --max:1360px;
+  --pad:max(var(--gutter),calc((100vw - var(--max)) / 2));
+  --header-h:84px;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header-h) + 1rem);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 1rem/1.7 var(--sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-wrap:break-word}
+h1,h2,h3,p{font-weight:400}
+h1,h2,h3,p,li,dt,dd,summary{word-break:keep-all}
+img{max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer}
+a,button,summary{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--blue-deep);outline-offset:4px}
+
+.skip{position:fixed;top:-100px;left:1rem;z-index:99;background:#fff;padding:.75rem 1rem}
+.skip:focus{top:.75rem}
+
+/* Small tracked label used across the site */
+.eyebrow{margin:0 0 1.5rem;font-size:.6875rem;line-height:1.6;letter-spacing:.14em;color:var(--muted)}
+
+/* ── Preview strip ─────────────────────────────────────────── */
+.preview{display:flex;justify-content:space-between;gap:1rem;padding:.5rem var(--pad);background:var(--ink);color:#fff;font-size:.6875rem;line-height:1.5;letter-spacing:.08em}
+.preview span{letter-spacing:.01em;color:#c3c6d4;text-align:right}
+
+/* ── Header ────────────────────────────────────────────────── */
+header{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:1rem;height:var(--header-h);padding:0 var(--pad);background:var(--paper);border-bottom:1px solid transparent;transition:border-color .3s}
+.is-scrolled header{border-bottom-color:var(--line)}
+/* Approved logo is a raster crop with a pale paper ground: lift it to white,
+   then multiply into the real background (V12 treatment, unchanged). */
+.wordmark,.footer-logo{display:inline-flex;align-items:center;min-height:44px;isolation:isolate;background:var(--paper)}
+.wordmark img,.footer-logo img{display:block;height:auto;filter:grayscale(1) brightness(1.3);mix-blend-mode:multiply}
+.wordmark img{width:clamp(176px,17vw,232px)}
+header nav{display:flex;gap:clamp(1.25rem,3vw,2.75rem);font-size:.875rem;letter-spacing:.01em}
+header nav a{display:inline-flex;align-items:center;min-height:44px;background:linear-gradient(currentColor,currentColor) no-repeat 0 calc(50% + .85em) / 0 1px;transition:background-size .35s var(--ease)}
+header nav a:hover{background-size:100% 1px}
+#menu{display:none;align-items:center;gap:.5rem;min-height:44px;min-width:48px;padding:0;border:0;background:none;font-size:.8125rem}
+#mobile-nav{position:sticky;top:var(--header-h);z-index:19;padding:.5rem var(--pad) 1rem;background:var(--paper);border-bottom:1px solid var(--line)}
+#mobile-nav a{display:flex;align-items:center;min-height:48px;border-top:1px solid var(--line-soft);font-size:.9375rem}
+#mobile-nav a:first-child{border-top:0}
+
+/* ── Home: hero ────────────────────────────────────────────── */
+.hero{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);align-items:center;gap:clamp(2rem,5vw,5rem);padding:clamp(2rem,4vw,3.5rem) 0 clamp(3rem,6vw,5.5rem) var(--pad)}
+.hero-copy .eyebrow{margin-bottom:clamp(1.5rem,3vw,2.5rem)}
+.hero-copy h1{margin:0 0 1.25rem;font-size:clamp(2.25rem,4.3vw,4.25rem);font-weight:500;line-height:1.24;letter-spacing:-.035em}
+.hero-slogan{margin:0 0 1.5rem;font:400 1.125rem/1.5 var(--serif);letter-spacing:.005em}
+.hero-copy .intro{max-width:30em;margin:0 0 2.25rem;color:var(--ink-2);line-height:1.9}
+.hero-actions{display:flex;flex-wrap:wrap;align-items:center;gap:1rem 2rem}
+.primary-link{display:inline-flex;align-items:center;justify-content:space-between;gap:2.25rem;min-height:52px;padding:0 1.5rem;background:var(--ink);color:#fff;font-size:.9375rem;font-weight:500;transition:background-color .25s,transform .1s ease-out}
+.primary-link span{transition:transform .35s var(--ease)}
+.primary-link:hover{background:#1b1b4b}
+.primary-link:hover span{transform:translateY(3px)}
+.primary-link:active{transform:scale(.98)}
+.secondary-link{display:inline-flex;align-items:center;min-height:44px;font-size:.875rem;text-decoration:underline;text-decoration-color:var(--line);text-decoration-thickness:1px;text-underline-offset:.45em;transition:text-decoration-color .25s,color .25s}
+.secondary-link:hover{color:var(--blue-deep);text-decoration-color:currentColor}
+/* The one approved photograph leads: it runs off the right edge of the page. */
+.hero-art{margin:0}
+.concept-photo img{display:block;width:100%;height:auto;aspect-ratio:1800/1273;object-fit:cover}
+.concept-photo figcaption{padding:.75rem var(--pad) 0 0;font-size:.6875rem;line-height:1.6;letter-spacing:.02em;color:var(--muted);text-align:right}
+
+/* ── Shared section furniture ──────────────────────────────── */
+.section-top{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding-top:1.1rem;border-top:1px solid var(--ink)}
+.section-top .eyebrow{margin:0;font-size:.8125rem;font-weight:500;letter-spacing:.04em;color:var(--ink)}
+.section-top>span{font-size:.6875rem;letter-spacing:.14em;color:var(--muted);text-align:right}
+
+/* ── Home: collection ──────────────────────────────────────── */
+.collection{padding:clamp(3.5rem,7vw,6.5rem) var(--pad);background:var(--surface)}
+.section-title{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);align-items:end;gap:2rem;margin:clamp(2rem,4vw,3.5rem) 0 1rem}
+.section-title h2{margin:0;font-size:clamp(1.75rem,3.2vw,3rem);font-weight:500;line-height:1.3;letter-spacing:-.03em}
+.section-title p{margin:0;justify-self:end;font-size:.9375rem;line-height:1.8;color:var(--ink-2);text-align:right}
+.index-key{margin:0 0 clamp(1.75rem,3vw,2.75rem);font-size:.75rem;line-height:1.75;color:var(--muted)}
+.index-key span{margin:0 .6em}
+
+/* Jump list: only needed while the shelf scrolls sideways (below 1100px). */
+.page-index{display:none;grid-template-columns:repeat(5,minmax(0,1fr));margin:0 0 1.5rem;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.page-index a{display:flex;justify-content:space-between;align-items:center;gap:.5rem;min-height:52px;padding:0 .9rem;border-right:1px solid var(--line);font-size:.75rem;font-variant-numeric:tabular-nums}
+.page-index a:first-child{padding-left:0}
+.page-index a:last-child{padding-right:0;border-right:0}
+.page-index span{display:inline-block;font-size:.625rem;color:var(--muted);transform:rotate(-90deg)}
+
+/* The shelf: five pages side by side */
+.products{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(.75rem,1.4vw,1.5rem)}
+.product{position:relative;display:flex;flex-direction:column;min-width:0;scroll-margin-top:calc(var(--header-h) + 1rem)}
+.product-art{position:relative;display:grid;place-items:center;aspect-ratio:3/4;overflow:hidden;container-type:inline-size;background:linear-gradient(120deg,#efefef,#e6edf2)}
+.scene-mark{position:absolute;inset:0;pointer-events:none}
+.folio{position:relative;z-index:1;display:flex;flex-direction:column;width:54cqw;aspect-ratio:3/4.15;padding:6cqw 5.5cqw 5cqw;background:linear-gradient(100deg,#ffffff,#e9edf0);border:1px solid rgba(255,255,255,.7);border-radius:2px 2px 4px 4px;box-shadow:0 1px 1px rgba(0,0,34,.06),.5cqw 2cqw 3cqw rgba(0,0,34,.07),3cqw 5cqw 7cqw rgba(0,0,34,.13);color:var(--ink);transform:rotate(-5deg);transition:transform .7s var(--ease),box-shadow .7s var(--ease)}
+.folio small{font-size:clamp(7px,2.5cqw,11px);line-height:1.4;letter-spacing:.14em}
+.folio span{order:1;margin-top:1.2em;font-size:clamp(8px,3cqw,13px);line-height:1.4;letter-spacing:.07em}
+.folio strong{order:2;margin-top:auto;font:400 clamp(34px,19cqw,96px)/.9 var(--serif);letter-spacing:-.02em}
+.product:nth-child(even) .folio{transform:rotate(4deg)}
+.product:hover .folio,.product:focus-within .folio{transform:rotate(0) translateY(-2.5cqw);box-shadow:0 1px 1px rgba(0,0,34,.06),.5cqw 3cqw 4cqw rgba(0,0,34,.08),3cqw 8cqw 10cqw rgba(0,0,34,.15)}
+.concept-label{position:absolute;left:.85rem;bottom:.7rem;z-index:1;font-size:.625rem;letter-spacing:.02em;color:#464659}
+
+/* One quiet motif per page */
+.visual-opening{background:linear-gradient(120deg,#f1f1f1,#e4ecf2)}
+.visual-opening .scene-mark{background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.65) 31%,rgba(255,255,255,.65) 39%,transparent 40%)}
+.visual-manuscript{background:#e1e5e9}
+.visual-manuscript .scene-mark{inset:18% -10%;background:repeating-linear-gradient(0deg,transparent 0 28px,rgba(125,174,211,.32) 29px 30px);transform:rotate(7deg)}
+.visual-archive{background:#c9caca}
+.visual-archive .scene-mark{inset:16% 14%;border:1px solid #b5bec6;box-shadow:8px 8px 0 #dfe3e6,9px 9px 0 #b5bec6,17px 17px 0 #dfe3e6,18px 18px 0 #b5bec6;transform:rotate(-4deg)}
+.visual-archive .folio{background:linear-gradient(100deg,#2f374d,#000022);border-color:rgba(125,174,211,.35);color:#efefef}
+.visual-observatory{background:linear-gradient(150deg,#efefef,#d5e4f0)}
+.visual-observatory .scene-mark{inset:auto;top:50%;left:50%;width:86%;aspect-ratio:1;border:1px solid var(--blue);border-radius:50%;transform:translate(-50%,-50%)}
+.visual-exposure{background:linear-gradient(120deg,#c9caca 0%,#efefef 48%,#d8e8f4 49%,#efefef 90%)}
+.visual-exposure .scene-mark{background:linear-gradient(100deg,transparent 35%,rgba(255,255,255,.7) 50%,transparent 65%)}
+
+.product-meta{display:flex;justify-content:space-between;gap:.5rem;margin:1.1rem 0 .4rem;font-size:.6875rem;line-height:1.6;letter-spacing:.08em;color:var(--muted);font-variant-numeric:tabular-nums}
+.product h3{margin:0;font-size:clamp(.9375rem,1.25vw,1.125rem);font-weight:500;line-height:1.4;letter-spacing:.04em}
+.card-scene{margin:.4rem 0 1.1rem;font-size:.9375rem;line-height:1.6;color:var(--ink-2)}
+.card-link{display:flex;justify-content:space-between;align-items:center;gap:.5rem;min-height:48px;margin-top:auto;padding:.5rem 0;border-top:1px solid var(--line);font-size:.75rem;line-height:1.5;transition:color .25s,border-color .25s}
+.card-link::after{content:'';position:absolute;inset:0}
+.card-link span{transition:transform .35s var(--ease)}
+.product:hover .card-link{color:var(--blue-deep);border-top-color:var(--ink)}
+.product:hover .card-link span{transform:translate(2px,-2px)}
+.collection-notice{margin:clamp(2rem,4vw,3rem) 0 0;padding-top:1.25rem;border-top:1px solid var(--line);font-size:.75rem;line-height:1.9;color:var(--muted)}
+
+/* ── Home: PAGE guide ──────────────────────────────────────── */
+.page-guide{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(2rem,8vw,7rem);padding:clamp(4rem,8vw,7.5rem) var(--pad)}
+.page-guide h2{margin:0;font-size:clamp(1.75rem,3vw,2.75rem);font-weight:500;line-height:1.35;letter-spacing:-.03em}
+.page-guide p{margin:0 0 1.25rem;font-size:1.0625rem;line-height:1.9;color:var(--ink-2)}
+.page-guide small{display:block;margin-top:1rem;font-size:.75rem;line-height:1.75;color:var(--muted)}
+
+/* ── Home: journal ─────────────────────────────────────────── */
+.journal{padding:clamp(3.5rem,7vw,6rem) var(--pad);background:var(--surface)}
+.journal>h2{margin:clamp(2rem,4vw,3rem) 0 .5rem;font-size:clamp(1.5rem,2.4vw,2.125rem);font-weight:500;line-height:1.35;letter-spacing:-.025em}
+.journal-intro{margin:0 0 2rem;font-size:.9375rem;color:var(--muted)}
+.journal-row{display:grid;grid-template-columns:minmax(0,.5fr) minmax(0,1.2fr) minmax(0,1.3fr) auto;gap:1.5rem;align-items:center;padding:1.5rem 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.journal-row>span{font-size:.6875rem;letter-spacing:.08em;color:var(--muted)}
+.journal-row h3{margin:0;font-size:1.0625rem;font-weight:500}
+.journal-row p{margin:0;font-size:.875rem;line-height:1.8;color:var(--ink-2)}
+.journal-row .status{padding:.45rem .8rem;border:1px solid var(--line);letter-spacing:.04em}
+
+/* ── Footer ────────────────────────────────────────────────── */
+footer{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr) auto;gap:2rem;align-items:start;padding:clamp(2.5rem,5vw,3.5rem) var(--pad);background:var(--paper);border-top:1px solid var(--ink)}
+.footer-logo img{width:clamp(176px,16vw,212px)}
+footer>div>span{font-size:.6875rem;letter-spacing:.14em}
+footer p{margin:.75rem 0 0;font-size:.75rem;line-height:1.9;color:var(--muted)}
+footer>a:last-child{display:inline-flex;align-items:center;min-height:44px;font-size:.6875rem;letter-spacing:.14em;transition:color .25s}
+footer>a:last-child:hover{color:var(--blue-deep)}
+
+/* ── Product page ──────────────────────────────────────────── */
+.pdp{padding:1.25rem var(--pad) clamp(3.5rem,7vw,6rem);background:var(--surface)}
+.return-link,.story-return{display:inline-flex;align-items:center;min-height:48px;font-size:.875rem;color:var(--ink-2);transition:color .25s}
+.return-link:hover,.story-return:hover{color:var(--blue-deep)}
+.pdp-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(2rem,6vw,6rem);align-items:start;margin:.75rem 0 clamp(3rem,6vw,5rem)}
+.pdp-image .product-art{aspect-ratio:1/1}
+.pdp-image .folio{width:36cqw;padding:4.5cqw 4cqw 3.5cqw;transition-duration:.6s}
+.pdp-image .folio small{font-size:clamp(8px,1.7cqw,11px)}
+.pdp-image .folio span{font-size:clamp(9px,2cqw,13px)}
+.pdp-image .folio strong{font-size:clamp(40px,12.5cqw,96px)}
+.pdp-image .product-art[data-shot=label] .folio{transform:scale(1.3)}
+.pdp-image .product-art[data-shot=scale] .folio{transform:rotate(0) scale(.78)}
+.pdp-image .product-art[data-shot=package] .folio{transform:rotate(-15deg);box-shadow:15px 15px 0 #d9d9d9,17px 17px 0 #969696}
+.pdp-image .product-art[data-shot=package] .scene-mark{inset:15%;width:auto;aspect-ratio:auto;border:1px solid #999;border-radius:0;background:none;box-shadow:none;transform:rotate(8deg)}
+.image-caption,.shot-caption{margin:.75rem 0 0;font-size:.75rem;line-height:1.75;color:var(--muted)}
+.shot-caption{min-height:2.75em}
+.gallery-controls{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:1rem;border:1px solid var(--line)}
+.shot-choice{min-height:48px;padding:.5rem .35rem;border:0;border-right:1px solid var(--line);border-radius:0;background:transparent;font-size:.75rem;line-height:1.4;transition:background-color .2s,color .2s,transform .1s ease-out}
+.shot-choice:last-child{border-right:0}
+.shot-choice:hover{background:rgba(0,0,34,.05)}
+.shot-choice:active{transform:scale(.98)}
+.shot-choice[aria-pressed=true]{background:var(--ink);color:#fff}
+
+.pdp-intro{padding-top:clamp(0rem,3vw,3rem)}
+.pdp-intro .eyebrow{margin-bottom:1.75rem}
+.pdp-intro h1{margin:0 0 1rem;font-size:clamp(2.125rem,4.6vw,4.5rem);line-height:1.08;letter-spacing:-.01em;overflow-wrap:anywhere}
+.pdp-scene{margin:0;font-size:clamp(1.0625rem,1.5vw,1.25rem);line-height:1.7}
+.pdp-preview-label{margin:1.75rem 0;font-size:.75rem;line-height:1.75;color:var(--muted)}
+.fact-list{margin:0}
+.fact-list>div{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:1.25rem;padding:1rem 0;border-top:1px solid var(--line-soft);font-size:.875rem;line-height:1.75}
+.fact-list>div:last-child{border-bottom:1px solid var(--line-soft)}
+.fact-list dd{margin:0;color:var(--muted)}
+.product-sections{display:flex;flex-direction:column;margin-top:1.75rem}
+.product-sections a{display:flex;justify-content:space-between;align-items:center;min-height:48px;border-bottom:1px solid var(--line);font-size:.875rem;transition:color .25s,border-color .25s}
+.product-sections a:hover{color:var(--blue-deep);border-bottom-color:var(--ink)}
+
+.pdp-section{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:2rem;padding:clamp(2.5rem,5vw,4rem) 0;border-top:1px solid var(--line);scroll-margin-top:calc(var(--header-h) + .5rem)}
+.pdp-section .eyebrow{margin:.35rem 0 0}
+.pdp-section h2{margin:0 0 1.25rem;font-size:clamp(1.375rem,2.1vw,1.75rem);font-weight:500;line-height:1.5;letter-spacing:-.02em}
+.pdp-section p{max-width:38em;margin:0 0 1rem;line-height:1.9;color:var(--ink-2)}
+.pdp-section .fact-list{max-width:38em;margin-top:1.5rem}
+.draft-note,.story-footnote{font-size:.75rem;line-height:1.9;color:var(--muted)}
+.pdp-section .draft-note{margin-top:1.5rem}
+
+.related{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0 1.5rem;padding-top:1.25rem;border-top:1px solid var(--ink)}
+.related .eyebrow{grid-column:1/-1;margin-bottom:1rem;font-size:.8125rem;font-weight:500;letter-spacing:.04em;color:var(--ink)}
+.related a{display:flex;justify-content:space-between;align-items:center;gap:.5rem;min-height:56px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:.875rem;line-height:1.5;overflow-wrap:anywhere;transition:color .25s,border-color .25s}
+.related a:hover{color:var(--blue-deep);border-color:var(--ink)}
+
+/* Disclosure rows */
+.longread{border-top:1px solid var(--line)}
+.longread:last-of-type{border-bottom:1px solid var(--line)}
+.longread summary{display:flex;justify-content:space-between;align-items:center;gap:1rem;min-height:52px;font-size:.875rem;line-height:1.6;cursor:pointer;list-style:none}
+.longread summary::-webkit-details-marker{display:none}
+.longread summary::after{content:'+';flex:none;font-size:1.125rem;line-height:1;color:var(--muted)}
+.longread[open] summary::after{content:'−'}
+.longread p{max-width:38em;margin:0 0 1.25rem;font-size:.9375rem;line-height:1.9;color:var(--ink-2)}
+.shot-list{margin-top:1.25rem}
+.shot-list ol{margin:0 0 1.25rem;padding-left:1.25rem;font-size:.875rem;line-height:1.8;color:var(--ink-2)}
+.shot-list li{margin-bottom:.6rem}
+
+/* ── Story page ────────────────────────────────────────────── */
+.story-return{margin:1.25rem var(--pad) 0}
+.story{padding:1rem var(--pad) clamp(3rem,6vw,5rem)}
+.story-heading{padding:1.1rem 0 clamp(2.5rem,5vw,4.5rem);border-top:1px solid var(--ink)}
+.story-heading .eyebrow{font-size:.8125rem;font-weight:500;letter-spacing:.04em;color:var(--ink)}
+.story-heading h1{margin:clamp(1.5rem,3vw,2.75rem) 0 1.5rem;font-size:clamp(2rem,4vw,3.5rem);font-weight:500;line-height:1.3;letter-spacing:-.035em}
+.story-heading .draft-note{max-width:44em;margin:0}
+.story-chapter{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:2rem;padding:clamp(2.5rem,5vw,4.5rem) 0;border-top:1px solid var(--line)}
+.chapter-label>span{display:block;font:400 clamp(2.25rem,3.6vw,3.25rem)/1 var(--serif);color:var(--muted)}
+.chapter-label p{margin:1.25rem 0 0;font-size:.6875rem;line-height:1.9;letter-spacing:.1em;color:var(--muted)}
+.chapter-body{max-width:46rem}
+.chapter-body h2{margin:0 0 1.75rem;font-size:clamp(1.375rem,2.3vw,1.875rem);font-weight:500;line-height:1.5;letter-spacing:-.025em}
+.chapter-body>p{margin:0 0 1.25rem;font-size:1.0625rem;line-height:1.9;color:var(--ink-2)}
+.chapter-body>.longread{margin-top:1.75rem;border-bottom:1px solid var(--line)}
+.page-key{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:.9rem 1rem;margin-top:2rem;padding:1.25rem 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:.8125rem;line-height:1.65}
+.page-key span:nth-child(even){color:var(--muted)}
+.subtitle-list{margin:2.25rem 0 1.5rem;border-bottom:1px solid var(--line)}
+.subtitle-list article{display:grid;grid-template-columns:7.5rem minmax(0,1fr);column-gap:1.5rem;padding:1.75rem 0;border-top:1px solid var(--line)}
+.subtitle-list .eyebrow{grid-row:1/span 3;margin:.4rem 0 0;font-variant-numeric:tabular-nums}
+.subtitle-list h3,.subtitle-list article>p:not(.eyebrow),.story-product{grid-column:2}
+.subtitle-list h3{margin:0 0 .9rem;font-size:1.375rem;font-weight:500;line-height:1.4;letter-spacing:.03em}
+.subtitle-list h3 span{display:block;margin-top:.5rem;font-size:.9375rem;font-weight:400;line-height:1.7;letter-spacing:0;color:var(--muted)}
+.subtitle-list article>p:not(.eyebrow){margin:0 0 .5rem;line-height:1.9;color:var(--ink-2)}
+.story-product{display:inline-flex;align-items:center;justify-self:start;min-height:44px;font-size:.8125rem;text-decoration:underline;text-decoration-color:var(--line);text-decoration-thickness:1px;text-underline-offset:.45em;transition:color .25s,text-decoration-color .25s}
+.story-product:hover{color:var(--blue-deep);text-decoration-color:currentColor}
+.line-link{display:inline-flex;justify-content:space-between;align-items:center;gap:2.25rem;min-height:52px;margin-top:1rem;padding:0 1.5rem;background:var(--ink);color:#fff;font-size:.9375rem;font-weight:500;transition:background-color .25s,transform .1s ease-out}
+.line-link span{transition:transform .35s var(--ease)}
+.line-link:hover{background:#1b1b4b}
+.line-link:hover span{transform:translateY(3px)}
+.line-link:active{transform:scale(.98)}
+
+/* ── Wide desktop keeps the shelf; narrower screens swipe it ── */
+@media(max-width:1099px){
+  .page-index{display:grid}
+  .products{display:flex;gap:1rem;margin-inline:calc(var(--pad) * -1);padding-inline:var(--pad);overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-inline:var(--pad);scrollbar-width:none}
+  .products::-webkit-scrollbar{display:none}
+  .product{flex:0 0 28vw;scroll-snap-align:start}
+}
+@media(max-width:899px){
+  .product{flex-basis:40vw}
+  .journal-row{grid-template-columns:minmax(0,.6fr) minmax(0,1.6fr) auto}
+  .journal-row p{grid-column:2;grid-row:2}
+  .related{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .related a:nth-of-type(n+3){border-top:0}
+}
+@media(max-width:719px){
+  :root{--header-h:68px}
+  header nav{display:none}
+  #menu{display:inline-flex}
+  .preview{font-size:.625rem}
+  .preview span{max-width:55%}
+  /* Photograph first, edge to edge, then the words. */
+  .hero{grid-template-columns:minmax(0,1fr);gap:1.75rem;padding:0 0 2.75rem}
+  .hero-art{order:-1}
+  .hero-copy{padding-inline:var(--pad)}
+  .hero-copy .eyebrow{margin-bottom:1.25rem}
+  .hero-copy h1{font-size:clamp(2.125rem,10vw,2.75rem);letter-spacing:-.03em}
+  .concept-photo figcaption{padding:.6rem var(--pad) 0;text-align:left}
+  .section-title{grid-template-columns:minmax(0,1fr);gap:1rem}
+  .section-title p{justify-self:start;text-align:left}
+  .product{flex-basis:72vw}
+  .page-index a{flex-direction:column;justify-content:center;align-items:flex-start;gap:0;min-height:56px;padding:0 .45rem;font-size:.625rem}
+  .page-index span{display:none}
+  .page-guide{grid-template-columns:minmax(0,1fr);gap:1.5rem}
+  .page-guide p{font-size:1rem}
+  .journal-row{grid-template-columns:minmax(0,1fr) auto;gap:.6rem 1rem}
+  .journal-row>span:first-child{grid-column:1/-1}
+  .journal-row p{grid-column:1/-1;grid-row:auto}
+  footer{grid-template-columns:minmax(0,1fr);gap:1.5rem}
+  .pdp-grid{grid-template-columns:minmax(0,1fr);gap:2rem}
+  .pdp-image .folio{width:44cqw}
+  .gallery-controls{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .shot-choice:nth-child(2){border-right:0}
+  .shot-choice:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .pdp-section{grid-template-columns:minmax(0,1fr);gap:.75rem}
+  .pdp-section .eyebrow{margin:0}
+  .related{grid-template-columns:minmax(0,1fr)}
+  .related a:nth-of-type(n+2){border-top:0}
+  .story-chapter{grid-template-columns:minmax(0,1fr);gap:1.25rem}
+  .chapter-label{display:flex;align-items:baseline;gap:1.25rem}
+  .chapter-label p{margin:0}
+  .chapter-label p br{display:none}
+  .chapter-body>p{font-size:1rem}
+  .chapter-body br{display:none}
+  .subtitle-list article{grid-template-columns:minmax(0,1fr)}
+  .subtitle-list .eyebrow{grid-row:auto;margin:0 0 .6rem}
+  .subtitle-list h3,.subtitle-list article>p:not(.eyebrow),.story-product{grid-column:1}
+}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition:none!important}
+  /* 이동만 없앤다. 색·선·투명도가 바뀌는 피드백은 남긴다(DESIGN.md "Motion"). */
+  a,button,summary,header,.pv-scrim{transition:color .25s,background-color .25s,border-color .25s,text-decoration-color .25s,opacity .25s!important}
+  .product:hover .folio,.product:focus-within .folio{transform:rotate(-5deg)}
+  .product:nth-child(even):hover .folio,.product:nth-child(even):focus-within .folio{transform:rotate(4deg)}
+}
+@media(prefers-contrast:more){
+  :root{--line:#7b7c84;--line-soft:#9a9ba3;--muted:#33334a}
+}
+
+/* ── V14 · 움직임 ──────────────────────────────────────────────
+   eve-library-design 스킬 적용. 반응은 즉시, 정착은 느리게, 튐 없음.
+   값의 뜻은 0_앱/DESIGN.md "Motion" 참고. */
+:root{--t-press:100ms;--t-quick:250ms;--t-settle:350ms;--t-surface:550ms;--t-object:700ms}
+html{scrollbar-gutter:stable}
+h1,h2{text-wrap:balance}
+
+/* 열람 순서: 첫 화면에서 한 번. 분류의 목소리 → 감정의 목소리 → 본문 */
+@media(prefers-reduced-motion:no-preference){
+  .hero-copy>*{opacity:0;transform:translateY(8px);animation:reveal var(--t-surface) var(--ease) forwards}
+  .hero-copy>:nth-child(2){animation-delay:70ms}
+  .hero-copy>:nth-child(3){animation-delay:140ms}
+  .hero-copy>:nth-child(4){animation-delay:210ms}
+  .hero-copy>:nth-child(5){animation-delay:280ms}
+  @keyframes reveal{to{opacity:1;transform:none}}
+
+  /* 제품 페이지와 브랜드 이야기 페이지의 첫 묶음도 같은 순서로 (2026-11-12).
+     누를 수 있는 것이 0.3초 넘게 가려지지 않도록 다섯째부터는 함께 나온다. */
+  .pdp-intro>*,.story-heading>*{opacity:0;transform:translateY(8px);animation:reveal var(--t-surface) var(--ease) forwards}
+  .pdp-intro>:nth-child(2),.story-heading>:nth-child(2){animation-delay:70ms}
+  .pdp-intro>:nth-child(3),.story-heading>:nth-child(3){animation-delay:140ms}
+  .pdp-intro>:nth-child(4){animation-delay:210ms}
+  .pdp-intro>:nth-child(n+5){animation-delay:280ms}
+
+  /* 휴대폰 메뉴: 머리줄 밑에서 내려오고 같은 길로 올라간다. 도중에 다시 누르면 그 자리에서 되돌아간다.
+     display 전환을 지원하지 않는 브라우저에서는 이 선언 전체가 무시되어 예전처럼 바로 나타난다. */
+  #mobile-nav{transition:opacity var(--t-quick),transform var(--t-settle) var(--ease),display var(--t-settle) allow-discrete}
+  #mobile-nav[hidden]{display:none;opacity:0;transform:translateY(-8px)}
+  @starting-style{#mobile-nav:not([hidden]){opacity:0;transform:translateY(-8px)}}
+
+  /* 페이지 사이의 전환 (2026-11-12): 화면은 조용히 겹쳐 바뀌고, PAGE 숫자만 제자리를 찾아 이동한다.
+     지원하지 않는 브라우저에서는 평소처럼 바로 넘어간다. */
+  @view-transition{navigation:auto}
+}
+
+/* 같은 PAGE의 숫자는 페이지가 바뀌어도 하나의 물건으로 이어진다:
+   홈의 카드 ↔ 미리 보기 ↔ 제품 페이지의 종이. 이름은 한 화면에 하나씩만 있어야 한다. */
+[data-vt="page-000"]{view-transition-name:page-000}
+[data-vt="page-091"]{view-transition-name:page-091}
+[data-vt="page-213"]{view-transition-name:page-213}
+[data-vt="page-523"]{view-transition-name:page-523}
+[data-vt="page-770"]{view-transition-name:page-770}
+/* 미리 보기가 열려 있는 동안은 카드 대신 미리 보기의 숫자가 그 이름을 갖는다(app.js) */
+[data-pv-open] .product [data-vt]{view-transition-name:none}
+.folio strong{align-self:flex-start} /* 숫자 상자를 글자 폭에 맞춰, 이동할 때 늘어나 보이지 않게 */
+::view-transition{pointer-events:none} /* 전환 중에도 누를 수 있게 */
+::view-transition-group(*){animation-duration:var(--t-surface);animation-timing-function:var(--ease)}
+/* 자리 이동은 0.55초, 겹쳐 바뀌는 것(사라지고 나타나기)은 화면 전체와 같은 0.35초 */
+::view-transition-old(*),::view-transition-new(*){animation-duration:var(--t-settle)}
+
+/* PAGE 미리 보기: 아래에서 올라오고 아래로 내려간다.
+   도중에 끊고 되돌릴 수 있도록 키프레임이 아니라 transition으로 움직인다. */
+.pv-scrim{position:fixed;inset:0;z-index:40;background:rgba(0,0,34,.32);opacity:0;pointer-events:none;touch-action:none;transition:opacity var(--t-quick)}
+.pv-sheet{position:fixed;left:0;right:0;bottom:0;z-index:41;width:min(100%,760px);margin-inline:auto;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-bottom:0;overscroll-behavior:contain;transform:translateY(100%);visibility:hidden;transition:transform var(--t-surface) var(--ease),visibility 0s linear var(--t-surface)}
+/* 위로 끌어 저항할 때 아래가 비어 보이지 않게 같은 면을 이어 붙인다 */
+.pv-sheet::after{content:'';position:absolute;left:-1px;right:-1px;top:100%;height:120px;background:inherit}
+[data-pv-open]{overflow:hidden}
+/* 스크롤바가 자리를 차지하는 화면에서는 그 자리가 scrim에 덮이지 않는다.
+   바탕색을 "paper 위에 scrim을 얹은 색"으로 바꿔 띠가 밝게 남지 않게 한다. */
+html{background:var(--paper);transition:background-color var(--t-quick)}
+html[data-pv-open]{background:#a3a3ad}
+/* 화면이 낮을 때(휴대폰 가로 등)는 머리 부분을 고정하고 본문만 스크롤한다. 닫기 버튼이 화면 밖으로 나가지 않게. */
+.pv-sheet{display:flex;flex-direction:column;max-height:calc(100vh - 12px);max-height:calc(100dvh - 12px)}
+.pv-sheet[hidden]{display:none}
+.pv-drag{flex:none}
+.pv-body{min-height:0;overflow-y:auto;overscroll-behavior:contain}
+[data-pv-open] .pv-scrim{opacity:1;pointer-events:auto}
+[data-pv-open] .pv-sheet{transform:none;visibility:visible;transition:transform var(--t-surface) var(--ease),visibility 0s}
+.pv-drag{padding:0 clamp(1.25rem,4vw,2.5rem);touch-action:none;cursor:grab}
+.pv-drag:active{cursor:grabbing}
+.pv-grab{display:grid;place-items:center;height:28px}
+.pv-grab i{display:block;width:40px;height:2px;background:var(--line)}
+.pv-head{display:flex;justify-content:space-between;align-items:center;gap:1rem;min-height:44px;border-bottom:1px solid var(--line-soft)}
+.pv-code{margin:0;font-size:.6875rem;line-height:1.6;letter-spacing:.14em;color:var(--muted);font-variant-numeric:tabular-nums}
+.pv-close{min-width:44px;min-height:44px;padding:0;border:0;background:none;font-size:.875rem;text-decoration:underline;text-decoration-color:var(--line);text-decoration-thickness:1px;text-underline-offset:.45em;transition:text-decoration-color var(--t-quick),color var(--t-quick)}
+.pv-close:hover{color:var(--blue-deep);text-decoration-color:currentColor}
+.pv-body{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:1rem 2rem;padding:clamp(1.5rem,4vw,2.5rem) clamp(1.25rem,4vw,2.5rem) calc(clamp(1.5rem,4vw,2.5rem) + env(safe-area-inset-bottom))}
+.pv-name{margin:0 0 .35rem;font-size:clamp(1.5rem,3vw,2.25rem);font-weight:500;line-height:1.3;letter-spacing:.04em}
+.pv-scene{margin:0 0 1.1rem;font-size:1.0625rem;line-height:1.6}
+.pv-text{margin:0 0 1.5rem;max-width:30em;font-size:.9375rem;line-height:1.9;color:var(--ink-2)}
+.pv-note{margin:0 0 1.75rem;max-width:36em;font-size:.75rem;line-height:1.9;color:var(--muted)}
+.pv-num{font:400 clamp(3.5rem,11vw,6rem)/.9 var(--serif);letter-spacing:-.02em}
+@media(max-width:560px){
+  .pv-body{grid-template-columns:minmax(0,1fr)}
+  .pv-num{order:-1;font-size:3.5rem}
+}
+
+/* ── 공개용 (2026-11-12) ───────────────────────────────────────
+   비공개 작업본 V14에서 만든 공개판. 제품 상세 페이지 없이 홈과 브랜드 이야기만 싣는다. */
+.section-title{margin-bottom:clamp(1.75rem,3vw,2.75rem)}
+/* 카드는 이제 링크가 아니라 미리 보기를 여는 버튼이다 */
+button.card-link{width:100%;border-width:1px 0 0;border-style:solid;border-color:var(--line);border-radius:0;background:none;text-align:left}
+.product:hover button.card-link{border-top-color:var(--ink)}
+.pv-note{margin-bottom:0}
+footer p a{display:inline-flex;align-items:center;min-height:44px;text-decoration:underline;text-decoration-color:var(--line);text-decoration-thickness:1px;text-underline-offset:.45em;transition:color var(--t-quick),text-decoration-color var(--t-quick)}
+footer p a:hover{color:var(--blue-deep);text-decoration-color:currentColor}
+/* 404 화면의 넷째 줄(돌아가기 링크)도 열람 순서를 따른다 */
+@media(prefers-reduced-motion:no-preference){.story-heading>:nth-child(4){animation-delay:210ms}}

@@ -1,0 +1,7 @@
+SUIT official source: https://sun.fo/suit/
+Repository: https://github.com/sun-typeface/SUIT
+Downloaded 2026-10-27 from https://raw.githubusercontent.com/sun-typeface/SUIT/main/fonts/static/woff2/SUIT-Regular.woff2 and SUIT-Medium.woff2
+License: https://raw.githubusercontent.com/sun-typeface/SUIT/main/LICENSE
+Unmodified binaries. OFL-1.1. Copyright (c) 2022 SUNN, Reserved Font Name SUIT. Full license in LICENSE-SUIT.txt.
+Regular SHA256 7a1971b4e54d6d797f105f2d8ad2fc5f5d6fd532195f582d74f4403177e83185
+Medium SHA256 8b69b1832781a1d08867c11979cb01023f7ade30e19cb9e0b8f93588964223f8
