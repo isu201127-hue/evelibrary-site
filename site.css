@@ -323,6 +323,12 @@ footer>a:last-child:hover{color:var(--blue-deep)}
   a,button,summary,header,.pv-scrim{transition:color .25s,background-color .25s,border-color .25s,text-decoration-color .25s,opacity .25s!important}
   .product:hover .folio,.product:focus-within .folio{transform:rotate(-5deg)}
   .product:nth-child(even):hover .folio,.product:nth-child(even):focus-within .folio{transform:rotate(4deg)}
+  /* 전환만 끄면 화살표와 눌림이 뚝 옮겨진다. 이동 값 자체를 없앤다(2026-11-12). */
+  .primary-link:hover span,.line-link:hover span,.product:hover .card-link span{transform:none}
+  .primary-link:active,.line-link:active,.shot-choice:active{transform:none}
+  /* 눌림은 크기 대신 색으로 알린다. 새 색을 만들지 않고 올림 색을 그대로 쓴다. */
+  .primary-link:active,.line-link:active{background:#1b1b4b}
+  .shot-choice:active{background:rgba(0,0,34,.05)}
 }
 @media(prefers-contrast:more){
   :root{--line:#7b7c84;--line-soft:#9a9ba3;--muted:#33334a}
