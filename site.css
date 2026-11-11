@@ -145,7 +145,7 @@ header nav a:hover{background-size:100% 1px}
 /* ── Home: PAGE guide ──────────────────────────────────────── */
 .page-guide{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(2rem,8vw,7rem);padding:clamp(4rem,8vw,7.5rem) var(--pad)}
 .page-guide h2{margin:0;font-size:clamp(1.75rem,3vw,2.75rem);font-weight:500;line-height:1.35;letter-spacing:-.03em}
-.page-guide p{margin:0 0 1.25rem;font-size:1.0625rem;line-height:1.9;color:var(--ink-2)}
+.page-guide p:not(.eyebrow){margin:0 0 1.25rem;font-size:1.0625rem;line-height:1.9;color:var(--ink-2)}
 .page-guide small{display:block;margin-top:1rem;font-size:.75rem;line-height:1.75;color:var(--muted)}
 
 /* ── Home: journal ─────────────────────────────────────────── */
@@ -291,7 +291,7 @@ footer>a:last-child:hover{color:var(--blue-deep)}
   .page-index a{flex-direction:column;justify-content:center;align-items:flex-start;gap:0;min-height:56px;padding:0 .45rem;font-size:.625rem}
   .page-index span{display:none}
   .page-guide{grid-template-columns:minmax(0,1fr);gap:1.5rem}
-  .page-guide p{font-size:1rem}
+  .page-guide p:not(.eyebrow){font-size:1rem}
   .journal-row{grid-template-columns:minmax(0,1fr) auto;gap:.6rem 1rem}
   .journal-row>span:first-child{grid-column:1/-1}
   .journal-row p{grid-column:1/-1;grid-row:auto}
