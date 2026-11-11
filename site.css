@@ -426,3 +426,5 @@ footer p a{display:inline-flex;align-items:center;min-height:44px;text-decoratio
 footer p a:hover{color:var(--blue-deep);text-decoration-color:currentColor}
 /* 404 화면의 넷째 줄(돌아가기 링크)도 열람 순서를 따른다 */
 @media(prefers-reduced-motion:no-preference){.story-heading>:nth-child(4){animation-delay:210ms}}
+/* 가벼운 그림(WebP)을 고르는 <picture>는 상자를 만들지 않는다. 배치는 예전과 같다. */
+picture{display:contents}
