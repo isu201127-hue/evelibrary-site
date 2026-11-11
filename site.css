@@ -7,6 +7,8 @@
 
 @font-face{font-family:'SUIT';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/SUIT-Regular.woff2') format('woff2')}
 @font-face{font-family:'SUIT';font-style:normal;font-weight:500;font-display:swap;src:url('fonts/SUIT-Medium.woff2') format('woff2')}
+/* Georgia가 없는 기기(안드로이드 등)에서 슬로건과 PAGE 숫자가 같은 인상으로 보이도록 하는 대체 글꼴. Georgia와 폭·모양이 거의 같은 공개 글꼴이며 라틴 문자와 숫자만 담았다. */
+@font-face{font-family:'Gelasio';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/Gelasio-Regular-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 
 :root{
   color-scheme:light;
@@ -20,7 +22,7 @@
   --blue:#7daed3;
   --blue-deep:#254f72;
   --sans:'SUIT','Apple SD Gothic Neo','Malgun Gothic',Arial,sans-serif;
-  --serif:Georgia,'Times New Roman',serif;
+  --serif:Georgia,'Gelasio','Times New Roman',serif;
   --gutter:clamp(1.25rem,5.5vw,5rem);
   --max:1360px;
   --pad:max(var(--gutter),calc((100vw - var(--max)) / 2));

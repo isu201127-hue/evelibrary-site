@@ -5,3 +5,12 @@ License: https://raw.githubusercontent.com/sun-typeface/SUIT/main/LICENSE
 Unmodified binaries. OFL-1.1. Copyright (c) 2022 SUNN, Reserved Font Name SUIT. Full license in LICENSE-SUIT.txt.
 Regular SHA256 7a1971b4e54d6d797f105f2d8ad2fc5f5d6fd532195f582d74f4403177e83185
 Medium SHA256 8b69b1832781a1d08867c11979cb01023f7ade30e19cb9e0b8f93588964223f8
+
+Gelasio (added 2026-11-12): fallback for the serif accent on devices without Georgia.
+Official source: Google Fonts, https://fonts.google.com/specimen/Gelasio
+Repository: https://github.com/SorkinType/Gelasio
+Downloaded 2026-11-12 from https://fonts.gstatic.com/s/gelasio/v14/cIfiMaFfvUQxTTqS3iKJkLGbI41wQL8Ilxcr8zE.woff2
+(the 'latin' subset, weight 400, as served by https://fonts.googleapis.com/css2?family=Gelasio)
+License: https://raw.githubusercontent.com/google/fonts/main/ofl/gelasio/OFL.txt
+Unmodified binary. OFL-1.1. Copyright 2022 The Gelasio Project Authors. Full license in LICENSE-GELASIO.txt.
+Gelasio-Regular-latin.woff2 SHA256 68e2b704c5624ba84e70d826e33c5fc08d75eb452f834d869abdecc39f3b26ac
