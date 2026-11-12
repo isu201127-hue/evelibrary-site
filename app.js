@@ -4,19 +4,12 @@ menu.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')
 mobile.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!mobile.hidden){closeMenu();menu.focus()}});
 window.addEventListener('pageshow',()=>{if(location.hash.startsWith('#product-'))document.querySelector(location.hash)?.focus({preventScroll:true})});
-// V13: the sticky header only draws its rule once content is underneath it.
+// The sticky header only draws its rule once content is underneath it.
 const markScrolled=()=>document.documentElement.classList.toggle('is-scrolled',window.scrollY>8||!mobile.hidden);
 markScrolled();window.addEventListener('scroll',markScrolled,{passive:true});menu.addEventListener('click',markScrolled);
 
-const shotNames={bottle:'01 병 전체',label:'02 라벨 · 소재',scale:'03 손에 든 크기',package:'04 패키지 개봉'};
-document.querySelectorAll('.shot-choice').forEach(button=>button.addEventListener('click',()=>{
- document.querySelectorAll('.shot-choice').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
- const image=document.querySelector('.pdp-image .product-art');image.dataset.shot=button.dataset.shot;
- document.querySelector('.shot-caption').textContent=shotNames[button.dataset.shot]+' · 승인된 실제 사진 대기. 현재 이미지는 추상 콘셉트입니다.';
-}));
-
-// V14: PAGE 미리 보기. 카드를 누르면 아래에서 한 장이 올라온다.
-// 스크립트가 없으면 카드는 원래대로 제품 페이지로 간다(틀은 hidden 상태로 남는다).
+// PAGE 미리 보기. 카드를 누르면 아래에서 한 장이 올라온다.
+// 스크립트가 없으면 미리 보기의 틀은 hidden 상태로 남는다.
 const sheet=document.querySelector('#pv-sheet');
 if(sheet){
  const root=document.documentElement,scrim=document.querySelector('#pv-scrim'),zone=sheet.querySelector('.pv-drag');
@@ -28,7 +21,7 @@ if(sheet){
   const card=link.closest('.product');opener=link;
   const code=card.querySelector('.product-meta span').textContent.trim(),name=card.querySelector('h3').textContent.trim();
   $('pv-code').textContent=code;$('pv-name').textContent=name;$('pv-num').textContent=code.replace('PAGE_','');
-  $('pv-num').style.viewTransitionName='page-'+code.replace('PAGE_',''); // 제품 페이지로 넘어갈 때 이 숫자가 종이 위 숫자로 이어진다
+  $('pv-num').style.viewTransitionName='page-'+code.replace('PAGE_',''); // 열려 있는 동안은 이 숫자가 그 이름을 갖는다
   $('pv-scene').textContent=card.querySelector('.card-scene').textContent.trim();
   $('pv-text').textContent=card.dataset.note||'';
   sheet.style.transform='';root.setAttribute('data-pv-open','');
