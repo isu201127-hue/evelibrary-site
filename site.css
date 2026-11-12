@@ -463,3 +463,34 @@ picture{display:contents}
 }
 /* 브라우저가 밝은 화면을 스스로 어둡게 바꿔 그리는 것을 알아챘을 때 */
 html[data-forced-dark] .logo-ink{color:#fff}
+
+/* ── 첫 화면을 여는 빛 ─────────────────────────────────────────
+   홈 화면은 어둠에서 시작한다. 스크롤은 평소처럼 내려가고, 화면 위에 얹은 한 겹에서
+   멀리 있던 빛이 다가와 화면을 덮은 뒤 걷히면 첫 화면이 드러난다.
+   스크립트가 없거나 움직임을 줄이도록 설정한 기기에는 이 겹이 없다. */
+.tunnel,.tunnel-space{display:none}
+.js-tunnel .tunnel{display:block;position:fixed;inset:0;z-index:15;overflow:hidden;background:#000022;pointer-events:none}
+.js-tunnel .tunnel-space{display:block;height:160vh}
+/* 처음부터 내려온 방문이 아니면(뒤로 가기, 새로 고침, 자리 표시가 붙은 주소) 스크롤 자리가 정해질 때까지 감춰 둔다 */
+.tunnel-late .tunnel{visibility:hidden}
+/* 빛과 스쳐 가는 먼지는 그림판 한 장에 그린다 */
+.tunnel-light{position:absolute;inset:0;width:100%;height:100%}
+/* 빛이 화면을 덮은 뒤에는 화면의 바탕색으로 가라앉는다 */
+.tunnel-wash{position:absolute;inset:0;background:var(--paper);opacity:0}
+.tunnel-words{position:absolute;left:0;right:0;top:61%;padding:0 var(--pad);text-align:center;color:#fff}
+.tunnel-slogan{margin:0;font:400 clamp(1.125rem,2vw,1.5rem)/1.5 var(--serif);letter-spacing:.005em}
+.tunnel-cue{position:absolute;left:50%;bottom:clamp(1.5rem,5vh,3rem);display:flex;flex-direction:column;align-items:center;gap:.75rem;transform:translateX(-50%);color:#c9caca;font-size:.6875rem;line-height:1;letter-spacing:.14em}
+.tunnel-cue i{display:block;width:1px;height:28px;background:linear-gradient(#c9caca,rgba(201,202,202,0))}
+/* 머리줄: 어두울 때는 흰 글씨, 중간 밝기에서는 잠시 물러나고, 밝아지면 평소대로 */
+.js-tunnel header{transition:background-color var(--t-quick),color var(--t-quick),border-color .3s,opacity var(--t-quick)}
+.in-tunnel header{background:transparent;color:#fff;border-bottom-color:transparent}
+.in-tunnel header .logo-ink,.in-tunnel header #menu{color:#fff}
+/* 로고를 글자색으로 칠하지 못하는 브라우저에서는 그림을 흰색으로 바꾼다 */
+.in-tunnel header .wordmark img{filter:brightness(0) invert(1)}
+.tunnel-mid header{background:transparent;border-bottom-color:transparent;opacity:0;pointer-events:none}
+.tunnel-mid header:focus-within{background:var(--paper);opacity:1;pointer-events:auto}
+/* 도착하면 첫 화면의 글이 평소의 순서대로 한 번 나타난다. 그때까지는 숨겨 둔다. */
+.js-tunnel .hero-copy.wait>*{animation-name:none;opacity:0}
+@media(prefers-reduced-motion:reduce),print{
+  .js-tunnel .tunnel,.js-tunnel .tunnel-space{display:none}
+}

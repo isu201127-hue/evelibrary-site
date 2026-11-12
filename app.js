@@ -78,3 +78,83 @@ if(sheet){
   zone.addEventListener('pointermove',move);zone.addEventListener('pointerup',up);zone.addEventListener('pointercancel',up);
  });
 }
+
+// 첫 화면을 여는 빛(홈 화면에만 있다). 스크롤은 그대로 두고, 화면 위에 얹은 한 겹의 빛만 바꾼다.
+// 이 스크립트가 4초 안에 준비되지 않으면 화면의 머리 부분에 있는 짧은 스크립트가 이 겹을 치우고 tunnel-off 를 남긴다.
+const tunnel=document.querySelector('#tunnel');
+if(tunnel&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&!document.documentElement.classList.contains('tunnel-off')){
+ const root=document.documentElement,space=document.querySelector('#tunnel-space'),copy=document.querySelector('.hero-copy');
+ const cv=tunnel.querySelector('.tunnel-light'),ctx=cv.getContext('2d'),wash=tunnel.querySelector('.tunnel-wash'),words=tunnel.querySelector('.tunnel-words'),cue=tunnel.querySelector('.tunnel-cue');
+ const darkScreen=matchMedia('(prefers-color-scheme: dark)');
+ const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v)),smooth=(a,b,v)=>{const x=clamp((v-a)/(b-a));return x*x*(3-2*x)};
+ // 먼지는 터널을 지나는 동안 다섯 번쯤 스쳐 가고(LOOPS), 빠를수록 꼬리가 길어지며(TAIL),
+ // 손을 멈춘 뒤에도 잠깐 더 흘러가다 잦아든다(PUSH, KEEP).
+ const LOOPS=5,TAIL=2.6,PUSH=.9,KEEP=.9;
+ let W=0,H=0,dust=[],wide=null,waiting=false,arrived=false,lastScroll=null,lastFlow=null,vel=0,flow=0;
+ const size=()=>{
+  const dpr=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;
+  cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);
+  // 먼지는 처음 한 번, 그리고 화면 폭의 갈래가 바뀔 때만 다시 뿌린다(주소창이 접힐 때마다 튀지 않게)
+  if(wide!==(W>=720)){
+   wide=W>=720;
+   dust=Array.from({length:wide?180:95},()=>{const bright=Math.random()<.14; // 일곱에 하나는 길고 밝은 빛줄기
+    return{a:Math.random()*Math.PI*2,d:Math.random(),m:.65+Math.random()*.9,w:(.6+Math.random())*(bright?1.5:1),o:(.3+Math.random()*.6)*(bright?1.4:1),blue:Math.random()<.3}});
+  }
+ };
+ const paint=(p,t,step)=>{
+  ctx.clearRect(0,0,W,H);
+  const cx=W/2,cy=H/2,far=Math.max(W,H);
+  // 터널 끝의 빛: 멀리 있을 때는 천천히, 가까워질수록 빨리 커진다.
+  // 화면이 어두운 기기에서는 빛이 화면을 다 덮기 전에 잦아든다(끝이 어두운 화면이라서).
+  const glow=darkScreen.matches||root.hasAttribute('data-forced-dark')?.9*(1-smooth(.4,.7,p)):1;
+  if(glow>.01){
+   const g=ctx.createRadialGradient(cx,cy,0,cx,cy,far*.025*Math.pow(80,clamp(p/.72)));
+   g.addColorStop(0,'#efefef');g.addColorStop(.22,'#efefef');g.addColorStop(.38,'#dbe6ee');g.addColorStop(.58,'rgba(125,174,211,.72)');g.addColorStop(.76,'rgba(37,79,114,.42)');g.addColorStop(1,'rgba(0,0,34,0)');
+   ctx.globalAlpha=glow;ctx.fillStyle=g;ctx.fillRect(0,0,W,H);ctx.globalAlpha=1;
+  }
+  // 먼지는 빛 쪽에서 나와 가장자리로 흘러간다. 가만히 있을 때는 거의 보이지 않고, 움직일 때 밝아진다.
+  const fade=1-smooth(.4,.62,p);if(fade<=.01)return;
+  const r0=far*.03,k=Math.log(Math.hypot(W,H)*.56/r0),lit=.14+.86*smooth(0,.02,Math.abs(step));
+  ctx.lineCap='round';
+  for(const q of dust){
+   let f=(q.d+t*q.m)%1;if(f<0)f+=1;
+   const alpha=Math.min(1,q.o*smooth(0,.2,f)*(1-smooth(.86,1,f))*fade*lit);if(alpha<.02)continue;
+   const r=r0*Math.exp(k*f),tail=r0*Math.exp(k*clamp(f-clamp(step*TAIL*q.m,-.16,.16))),cos=Math.cos(q.a),sin=Math.sin(q.a);
+   ctx.strokeStyle=(q.blue?'rgba(125,174,211,':'rgba(239,239,239,')+alpha.toFixed(3)+')';
+   ctx.lineWidth=q.w*(.5+1.5*f)*(wide?1:.7);
+   ctx.beginPath();ctx.moveTo(cx+cos*tail,cy+sin*tail);ctx.lineTo(cx+cos*r+.01,cy+sin*r+.01);ctx.stroke();
+  }
+ };
+ const request=()=>{if(!waiting){waiting=true;requestAnimationFrame(draw)}};
+ const draw=()=>{
+  waiting=false;
+  const p=clamp(scrollY/(space.offsetHeight||1)); // 0 = 맨 위(어둠), 1 = 다 밝아짐
+  // 스크롤이 민 만큼 나아가고, 손의 빠르기가 남아 있는 동안은 조금 더 흘러간다
+  const ts=p*LOOPS;if(lastScroll===null)lastScroll=ts;
+  vel=vel*KEEP+(ts-lastScroll)*(1-KEEP);lastScroll=ts;flow+=vel*PUSH;
+  const t=ts+flow;if(lastFlow===null)lastFlow=t;
+  const step=t-lastFlow;lastFlow=t; // 이번 장면에서 움직인 만큼이 꼬리의 길이가 된다
+  if(p<1)paint(p,t,step);
+  if(Math.abs(vel)>.0003)request();
+  words.style.opacity=(1-smooth(.05,.2,p)).toFixed(3);
+  cue.style.opacity=(1-smooth(.02,.1,p)).toFixed(3);
+  wash.style.opacity=smooth(.56,.72,p).toFixed(3);
+  if(!arrived&&p>.8){arrived=true;copy.classList.remove('wait')}
+  // 다 밝아지면 이 겹이 걷히면서 밑에서 올라오던 첫 화면이 드러난다
+  tunnel.style.opacity=(1-smooth(.76,.97,p)).toFixed(3);
+  tunnel.style.visibility=p>=.97?'hidden':'visible';
+  // 머리줄: 어두울 때는 흰 글씨, 중간 밝기에서는 물러나고, 밝아지면 평소대로
+  root.classList.toggle('in-tunnel',p<.24);
+  root.classList.toggle('tunnel-mid',p>=.24&&p<.76);
+ };
+ if(!root.classList.contains('js-tunnel'))root.classList.add('js-tunnel','tunnel-late');
+ root.classList.add('tunnel-on');
+ size();
+ if(root.classList.contains('tunnel-late')){
+  // 브라우저가 스크롤 자리를 되돌린 뒤에 그린다. 첫 화면의 글은 숨기지 않는다.
+  arrived=true;addEventListener('load',()=>setTimeout(draw,0));
+ }else{copy.classList.add('wait');draw()}
+ addEventListener('scroll',request,{passive:true});
+ addEventListener('resize',()=>{size();request()});
+ addEventListener('pageshow',e=>{if(e.persisted)request()});
+}
