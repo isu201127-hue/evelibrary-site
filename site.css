@@ -2,8 +2,10 @@
 
 @font-face{font-family:'SUIT';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/SUIT-Regular.woff2') format('woff2')}
 @font-face{font-family:'SUIT';font-style:normal;font-weight:500;font-display:swap;src:url('fonts/SUIT-Medium.woff2') format('woff2')}
-/* Georgia가 없는 기기(안드로이드 등)에서 슬로건과 PAGE 숫자가 같은 인상으로 보이도록 하는 대체 글꼴. Georgia와 폭·모양이 거의 같은 공개 글꼴이며 라틴 문자와 숫자만 담았다. */
-@font-face{font-family:'Gelasio';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/Gelasio-Regular-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'SUIT';font-style:normal;font-weight:300;font-display:swap;src:url('fonts/SUIT-Light.woff2') format('woff2')}
+/* 영문 전용 두 가지. 작은 라벨과 PAGE 코드는 타자기체, 향 이름과 슬로건과 숫자는 세리프. 라틴 문자와 숫자만 담았다. */
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/IBMPlexMono-Regular-latin.woff2') format('woff2')}
+@font-face{font-family:'Instrument Serif';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/InstrumentSerif-Regular-latin.woff2') format('woff2')}
 
 :root{
   color-scheme:light dark;
@@ -17,7 +19,8 @@
   --blue:#7daed3;
   --blue-deep:#254f72;
   --sans:'SUIT','Apple SD Gothic Neo','Malgun Gothic',Arial,sans-serif;
-  --serif:Georgia,'Gelasio','Times New Roman',serif;
+  --serif:'Instrument Serif',Georgia,'Times New Roman',serif;
+  --mono:'IBM Plex Mono','SUIT','Apple SD Gothic Neo','Malgun Gothic',monospace;
   --gutter:clamp(1.25rem,5.5vw,5rem);
   --max:1360px;
   --pad:max(var(--gutter),calc((100vw - var(--max)) / 2));
@@ -438,6 +441,23 @@ footer p a:hover{color:var(--blue-deep);text-decoration-color:currentColor}
 @media(prefers-reduced-motion:no-preference){.story-heading>:nth-child(4){animation-delay:210ms}}
 /* 가벼운 그림(WebP)을 고르는 <picture>는 상자를 만들지 않는다. */
 picture{display:contents}
+
+/* ── 글꼴의 세 목소리 ──────────────────────────────────────────
+   분류의 목소리(작은 영문 라벨, PAGE 코드)는 타자기체, 이름의 목소리(영문 향 이름, 슬로건, 숫자)는 세리프,
+   한글 제목은 본문과 같은 고딕을 가늘게 쓴다. 같은 요소의 앞선 규칙보다 뒤에 두어야 한다. */
+.hero-copy .eyebrow,.page-guide .eyebrow,.section-top>span,.product-meta,.page-index a,.folio small,.pv-code,.subtitle-list .eyebrow,.chapter-label p,footer>div>span,footer>a:last-child,.tunnel-cue{font-family:var(--mono);letter-spacing:.05em}
+.product-meta,.page-index a,.subtitle-list .eyebrow{letter-spacing:.01em}
+.product h3,.pv-name,.folio span,.subtitle-list h3{font-family:var(--serif);font-weight:400;letter-spacing:.04em}
+/* 이름 옆에 붙는 한글은 고딕 그대로 */
+.subtitle-list h3 span{font-family:var(--sans)}
+/* 세리프는 같은 크기에서 작아 보여 한 단 키운다 */
+.product h3{font-size:clamp(1.3125rem,1.75vw,1.5625rem);line-height:1.2}
+.folio span{font-size:clamp(10px,3.8cqw,16px)}
+.subtitle-list h3{font-size:1.75rem;line-height:1.25}
+.pv-name{font-size:clamp(1.875rem,3.8vw,2.875rem);line-height:1.15}
+.hero-slogan{font-size:1.4375rem}
+.tunnel .tunnel-slogan{font-size:clamp(1.4375rem,2.5vw,1.875rem)}
+.hero-copy h1,.section-title h2,.page-guide h2,.journal>h2,.story-heading h1,.chapter-body h2{font-weight:300;letter-spacing:-.03em}
 
 /* ── 어두운 화면 ───────────────────────────────────────────────
    기기가 어두운 화면을 쓰면 밝고 어두움을 뒤집어 쓴다. 바탕은 검정, 글자는 밝은 회색. */

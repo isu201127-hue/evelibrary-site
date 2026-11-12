@@ -14,3 +14,26 @@ Downloaded 2026-11-12 from https://fonts.gstatic.com/s/gelasio/v14/cIfiMaFfvUQxT
 License: https://raw.githubusercontent.com/google/fonts/main/ofl/gelasio/OFL.txt
 Unmodified binary. OFL-1.1. Copyright 2022 The Gelasio Project Authors. Full license in LICENSE-GELASIO.txt.
 Gelasio-Regular-latin.woff2 SHA256 68e2b704c5624ba84e70d826e33c5fc08d75eb452f834d869abdecc39f3b26ac
+
+Gelasio was removed on 2026-11-12 (file and licence text): Instrument Serif took over the serif accent and is served to every device.
+
+SUIT-Light (added 2026-11-12): the Korean headings.
+Downloaded 2026-11-12 from https://raw.githubusercontent.com/sun-typeface/SUIT/main/fonts/static/woff2/SUIT-Light.woff2
+Unmodified binary. OFL-1.1, same licence as the other SUIT files (LICENSE-SUIT.txt).
+SUIT-Light.woff2 SHA256 88fd6085b60056afb524430e6024b9ae2f1169db49c3c71a158496a8b46ecc8c
+
+IBM Plex Mono (added 2026-11-12): small English labels and PAGE codes.
+Official source: https://github.com/IBM/plex ; served by Google Fonts, https://fonts.google.com/specimen/IBM+Plex+Mono
+Downloaded 2026-11-12 from https://fonts.gstatic.com/s/ibmplexmono/v23/-F63fjptAgt5VM-kVkqdyU8n1i8q1w.woff2
+(the 'latin' subset, weight 400, as served by https://fonts.googleapis.com/css2?family=IBM+Plex+Mono)
+License: https://raw.githubusercontent.com/google/fonts/main/ofl/ibmplexmono/OFL.txt
+Unmodified binary. OFL-1.1. Copyright (c) 2017 IBM Corp. with Reserved Font Name "Plex". Full license in LICENSE-IBMPLEXMONO.txt.
+IBMPlexMono-Regular-latin.woff2 SHA256 7ced53420784c93cecccb7c27237594f0e41e5a7990581565f0aef8eda9e9d2f
+
+Instrument Serif (added 2026-11-12): English scent names, the slogan, PAGE numerals.
+Official source: https://github.com/Instrument/instrument-serif ; served by Google Fonts, https://fonts.google.com/specimen/Instrument+Serif
+Downloaded 2026-11-12 from https://fonts.gstatic.com/s/instrumentserif/v5/jizBRFtNs2ka5fXjeivQ4LroWlx-6zUTjg.woff2
+(the 'latin' subset, weight 400, as served by https://fonts.googleapis.com/css2?family=Instrument+Serif)
+License: https://raw.githubusercontent.com/google/fonts/main/ofl/instrumentserif/OFL.txt
+Unmodified binary. OFL-1.1. Copyright 2022 The Instrument Serif Project Authors. Full license in LICENSE-INSTRUMENTSERIF.txt.
+InstrumentSerif-Regular-latin.woff2 SHA256 5eb09b5ac0e28b67c2f041c8ba6d244604ca0c0980d65912ab2d47fed84ddc31
