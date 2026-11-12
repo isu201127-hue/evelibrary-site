@@ -15,7 +15,7 @@ License: https://raw.githubusercontent.com/google/fonts/main/ofl/gelasio/OFL.txt
 Unmodified binary. OFL-1.1. Copyright 2022 The Gelasio Project Authors. Full license in LICENSE-GELASIO.txt.
 Gelasio-Regular-latin.woff2 SHA256 68e2b704c5624ba84e70d826e33c5fc08d75eb452f834d869abdecc39f3b26ac
 
-Gelasio was removed on 2026-11-12 (file and licence text): Instrument Serif took over the serif accent and is served to every device.
+Gelasio was removed on 2026-11-12 when Instrument Serif took over the serif accent, and came back the same day (the same file) for the two slogans: they are set in Georgia, and Gelasio stands in on devices without Georgia.
 
 SUIT-Light (added 2026-11-12): the Korean headings.
 Downloaded 2026-11-12 from https://raw.githubusercontent.com/sun-typeface/SUIT/main/fonts/static/woff2/SUIT-Light.woff2
