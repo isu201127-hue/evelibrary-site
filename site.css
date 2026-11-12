@@ -55,14 +55,15 @@ header{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-
 .wordmark img{width:clamp(176px,17vw,232px)}
 /* 로고의 글씨는 글자색으로 칠한다. 그래야 화면이 어두워질 때 글자와 함께 밝아진다.
    칠은 큰 빈칸 두 개에 그은 굵은 줄이고, 글씨 모양은 로고 그림의 투명도에서 온다.
-   이 방식을 쓸 수 없는 브라우저에서는 아래의 그림이 그대로 보인다. */
-.logo-ink{display:none}
+   굵은 줄을 그리는 방식이 브라우저 엔진마다 달라서, 확인된 크롬 계열에서만 쓴다
+   (문서에 ink-logo 표시가 붙는다). 그 밖의 브라우저에서는 아래의 그림이 그대로 보인다. */
+.logo-ink{display:none;color:#121212}
 @supports ((mask-image:url(x)) or (-webkit-mask-image:url(x))) and (text-decoration-thickness:1em) and (aspect-ratio:1/1){
-  .wordmark,.footer-logo{position:relative}
-  .wordmark img,.footer-logo img{opacity:0}
+  .ink-logo .wordmark,.ink-logo .footer-logo{position:relative}
+  .ink-logo .wordmark img,.ink-logo .footer-logo img{opacity:0}
   /* 폭은 아래에 깔린 그림의 폭과 같아야 한다 */
-  .footer-logo .logo-ink{width:clamp(176px,16vw,212px)}
-  .logo-ink{position:absolute;top:0;bottom:0;left:0;margin-block:auto;width:clamp(176px,17vw,232px);aspect-ratio:815/190;overflow:hidden;display:flex;align-items:center;justify-content:center;color:#121212;font-size:96px;line-height:1;letter-spacing:3em;white-space:pre;text-decoration:underline overline line-through;text-decoration-thickness:2em;text-decoration-skip-ink:none;-webkit-mask:url(assets/eve-library-logo-ink.png) center/100% 100% no-repeat;mask:url(assets/eve-library-logo-ink.png) center/100% 100% no-repeat;pointer-events:none;-webkit-user-select:none;user-select:none}
+  .ink-logo .footer-logo .logo-ink{width:clamp(176px,16vw,212px)}
+  .ink-logo .logo-ink{position:absolute;top:0;bottom:0;left:0;margin-block:auto;width:clamp(176px,17vw,232px);aspect-ratio:815/190;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:96px;line-height:1;letter-spacing:3em;white-space:pre;text-decoration:underline overline line-through;text-decoration-thickness:2em;text-decoration-skip-ink:none;-webkit-mask:url(assets/eve-library-logo-ink.png) center/100% 100% no-repeat;mask:url(assets/eve-library-logo-ink.png) center/100% 100% no-repeat;pointer-events:none;-webkit-user-select:none;user-select:none}
 }
 header nav{display:flex;gap:clamp(1.25rem,3vw,2.75rem);font-size:.875rem;letter-spacing:.01em}
 header nav a{display:inline-flex;align-items:center;min-height:44px;background:linear-gradient(currentColor,currentColor) no-repeat 0 calc(50% + .85em) / 0 1px;transition:background-size .35s var(--ease)}
