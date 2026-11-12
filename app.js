@@ -1,3 +1,18 @@
+// 브라우저가 밝은 화면을 스스로 어둡게 바꿔 그릴 때는 로고를 흰 글씨로 바꾼다.
+// 밝은 색으로 고정한 칸의 바탕(canvas)이 어둡게 읽히면 그런 경우다.
+(()=>{
+ const probe=document.createElement('div');
+ probe.style.cssText='display:none;background-color:canvas;color-scheme:light';
+ document.documentElement.append(probe);
+ const rgb=/^rgb\((\d+), (\d+), (\d+)\)$/.exec(getComputedStyle(probe).backgroundColor);
+ probe.remove();
+ if(!rgb||+rgb[1]+ +rgb[2]+ +rgb[3]>=384)return;
+ document.documentElement.setAttribute('data-forced-dark','');
+ document.querySelectorAll('.wordmark picture,.footer-logo picture').forEach(picture=>{
+  picture.querySelectorAll('source').forEach(source=>source.remove());
+  const img=picture.querySelector('img');img.src=img.getAttribute('src').replace('-ink.','-white.');
+ });
+})();
 const menu=document.querySelector('#menu'),mobile=document.querySelector('#mobile-nav');
 function closeMenu(){mobile.hidden=true;menu.setAttribute('aria-expanded','false');menu.querySelector('span').textContent='＋';markScrolled()}
 menu.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')!=='true';menu.setAttribute('aria-expanded',String(open));mobile.hidden=!open;menu.querySelector('span').textContent=open?'−':'＋'});
