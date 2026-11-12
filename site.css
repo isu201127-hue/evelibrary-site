@@ -440,11 +440,11 @@ footer p a:hover{color:var(--blue-deep);text-decoration-color:currentColor}
 picture{display:contents}
 
 /* ── 어두운 화면 ───────────────────────────────────────────────
-   기기가 어두운 화면을 쓰면 같은 색을 뒤집어 쓴다. 바탕은 네이비, 글자는 밝은 회색. */
+   기기가 어두운 화면을 쓰면 밝고 어두움을 뒤집어 쓴다. 바탕은 검정, 글자는 밝은 회색. */
 @media(prefers-color-scheme:dark){
-  :root{--ink:#efefef;--ink-2:#b9bac6;--muted:#8e8f9d;--paper:#000022;--surface:#0a0a30;--line:#34344d;--line-soft:#1f1f3a;--blue-deep:#7daed3}
-  /* 네이비 바탕이던 단추는 밝은 바탕에 네이비 글자가 된다 */
-  .preview,.primary-link,.line-link,.shot-choice[aria-pressed=true]{color:#000022}
+  :root{--ink:#efefef;--ink-2:#bdbdbf;--muted:#929294;--paper:#000;--surface:#0f0f0f;--line:#383838;--line-soft:#252525;--blue-deep:#7daed3}
+  /* 네이비 바탕이던 단추는 밝은 바탕에 검은 글자가 된다 */
+  .preview,.primary-link,.line-link,.shot-choice[aria-pressed=true]{color:#000}
   .preview span{color:#3d3d53}
   .primary-link:hover,.line-link:hover{background:#fff}
   .shot-choice:hover{background:rgba(255,255,255,.08)}
@@ -453,14 +453,14 @@ picture{display:contents}
   /* 종이 카드는 어두운 화면에서도 종이로 남는다 */
   .product-art{--ink:#000022;--ink-2:#3d3d53;--muted:#585868;--paper:#efefef;--surface:#f8f8f8;--line:#c9caca;--line-soft:#dcddde;--blue-deep:#254f72;color:var(--ink)}
   .pv-scrim{background:rgba(0,0,0,.55)}
-  html[data-pv-open]{background:#00000f}
+  html[data-pv-open]{background:#000}
 }
 @media(prefers-color-scheme:dark) and (prefers-reduced-motion:reduce){
   .primary-link:active,.line-link:active{background:#fff}
   .shot-choice:active{background:rgba(255,255,255,.08)}
 }
 @media(prefers-color-scheme:dark) and (prefers-contrast:more){
-  :root{--line:#8e8f9d;--line-soft:#6a6b7c;--muted:#c9caca}
+  :root{--line:#909090;--line-soft:#6c6c6c;--muted:#c9caca}
 }
 /* 브라우저가 밝은 화면을 스스로 어둡게 바꿔 그리는 것을 알아챘을 때 */
 html[data-forced-dark] .logo-ink{color:#fff}
