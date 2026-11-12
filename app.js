@@ -109,7 +109,7 @@ if(tunnel&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&!document.do
   const glow=darkScreen.matches||root.hasAttribute('data-forced-dark')?.9*(1-smooth(.4,.7,p)):1;
   if(glow>.01){
    const g=ctx.createRadialGradient(cx,cy,0,cx,cy,far*.025*Math.pow(80,clamp(p/.72)));
-   g.addColorStop(0,'#efefef');g.addColorStop(.22,'#efefef');g.addColorStop(.38,'#dbe6ee');g.addColorStop(.58,'rgba(125,174,211,.72)');g.addColorStop(.76,'rgba(37,79,114,.42)');g.addColorStop(1,'rgba(0,0,34,0)');
+   g.addColorStop(0,'#efefef');g.addColorStop(.22,'#efefef');g.addColorStop(.38,'#dbe6ee');g.addColorStop(.58,'rgba(125,174,211,.72)');g.addColorStop(.76,'rgba(37,79,114,.42)');g.addColorStop(1,'rgba(0,0,0,0)');
    ctx.globalAlpha=glow;ctx.fillStyle=g;ctx.fillRect(0,0,W,H);ctx.globalAlpha=1;
   }
   // 먼지는 빛 쪽에서 나와 가장자리로 흘러간다. 가만히 있을 때는 거의 보이지 않고, 움직일 때 밝아진다.

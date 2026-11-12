@@ -470,7 +470,7 @@ html[data-forced-dark] .logo-ink{color:#fff}
    멀리 있던 빛이 다가와 화면을 덮은 뒤 걷히면 첫 화면이 드러난다.
    스크립트가 없거나 움직임을 줄이도록 설정한 기기에는 이 겹이 없다. */
 .tunnel,.tunnel-space{display:none}
-.js-tunnel .tunnel{display:block;position:fixed;inset:0;z-index:15;overflow:hidden;background:#000022;pointer-events:none}
+.js-tunnel .tunnel{display:block;position:fixed;inset:0;z-index:15;overflow:hidden;background:#000;pointer-events:none}
 .js-tunnel .tunnel-space{display:block;height:160vh}
 /* 처음부터 내려온 방문이 아니면(뒤로 가기, 새로 고침, 자리 표시가 붙은 주소) 스크롤 자리가 정해질 때까지 감춰 둔다 */
 .tunnel-late .tunnel{visibility:hidden}
