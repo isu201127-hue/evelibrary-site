@@ -5,6 +5,7 @@
 @font-face{font-family:'SUIT';font-style:normal;font-weight:300;font-display:swap;src:url('fonts/SUIT-Light.woff2') format('woff2')}
 /* 영문 전용 두 가지. 작은 라벨과 PAGE 코드는 타자기체, 향 이름과 슬로건과 숫자는 세리프. 라틴 문자와 숫자만 담았다. */
 @font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/IBMPlexMono-Regular-latin.woff2') format('woff2')}
+@font-face{font-family:'Lato';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/Lato-Regular-latin.woff2') format('woff2')}
 @font-face{font-family:'Instrument Serif';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/InstrumentSerif-Regular-latin.woff2') format('woff2')}
 
 :root{
@@ -456,7 +457,8 @@ picture{display:contents}
 .subtitle-list h3{font-size:1.75rem;line-height:1.25}
 .pv-name{font-size:clamp(1.875rem,3.8vw,2.875rem);line-height:1.15}
 .hero-slogan{font-size:1.4375rem}
-.tunnel .tunnel-slogan{font-size:clamp(1.4375rem,2.5vw,1.875rem)}
+/* 여는 화면의 슬로건은 로고 아래의 글씨처럼 대문자 고딕으로 쓴다 */
+.tunnel .tunnel-slogan{font-family:'Lato',var(--sans);font-weight:400;font-size:clamp(.875rem,1.25vw,1.0625rem);line-height:1.6;letter-spacing:.08em;text-transform:uppercase}
 .hero-copy h1,.section-title h2,.page-guide h2,.journal>h2,.story-heading h1,.chapter-body h2{font-weight:300;letter-spacing:-.03em}
 
 /* ── 어두운 화면 ───────────────────────────────────────────────

@@ -37,3 +37,11 @@ Downloaded 2026-11-12 from https://fonts.gstatic.com/s/instrumentserif/v5/jizBRF
 License: https://raw.githubusercontent.com/google/fonts/main/ofl/instrumentserif/OFL.txt
 Unmodified binary. OFL-1.1. Copyright 2022 The Instrument Serif Project Authors. Full license in LICENSE-INSTRUMENTSERIF.txt.
 InstrumentSerif-Regular-latin.woff2 SHA256 5eb09b5ac0e28b67c2f041c8ba6d244604ca0c0980d65912ab2d47fed84ddc31
+
+Lato (added 2026-11-12): the slogan on the opening screen, set like the tagline under the logo in the designer's draft.
+Official source: https://www.latofonts.com/ ; served by Google Fonts, https://fonts.google.com/specimen/Lato
+Downloaded 2026-11-12 from https://fonts.gstatic.com/s/lato/v25/S6uyw4BMUTPHjx4wXg.woff2
+(the 'latin' subset, weight 400, as served by https://fonts.googleapis.com/css2?family=Lato)
+License: https://raw.githubusercontent.com/google/fonts/main/ofl/lato/OFL.txt
+Unmodified binary. OFL-1.1. Copyright (c) 2010-2014 by tyPoland Lukasz Dziedzic with Reserved Font Name "Lato". Full license in LICENSE-LATO.txt.
+Lato-Regular-latin.woff2 SHA256 918b7dc3e2e2d015c16ce08b57bcb64d2253bafc1707658f361e72865498e537
