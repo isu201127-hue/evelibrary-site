@@ -37,3 +37,12 @@ Downloaded 2026-11-12 from https://fonts.gstatic.com/s/instrumentserif/v5/jizBRF
 License: https://raw.githubusercontent.com/google/fonts/main/ofl/instrumentserif/OFL.txt
 Unmodified binary. OFL-1.1. Copyright 2022 The Instrument Serif Project Authors. Full license in LICENSE-INSTRUMENTSERIF.txt.
 InstrumentSerif-Regular-latin.woff2 SHA256 5eb09b5ac0e28b67c2f041c8ba6d244604ca0c0980d65912ab2d47fed84ddc31
+
+Noto Serif KR (added 2026-11-14): the Korean headings and the one-line scene texts, weights 300 and 400.
+Original font: Google Fonts, https://fonts.google.com/specimen/Noto+Serif+KR (https://github.com/google/fonts/tree/main/ofl/notoserifkr), upstream https://github.com/notofonts/noto-cjk
+Package: @fontsource/noto-serif-kr 5.3.1 (fontsource, https://fontsource.org/fonts/noto-serif-kr), the files split by character range.
+Downloaded 2026-11-14 from https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-kr@5.3.1/files/ :
+noto-serif-kr-{0-119,latin,latin-ext,cyrillic,vietnamese}-{300,400}-normal.woff2 (248 files), and LICENSE.
+Each file checked against the SHA256 in https://data.jsdelivr.com/v1/packages/npm/@fontsource/noto-serif-kr@5.3.1?structure=flat (all equal).
+Unmodified binaries. OFL-1.1, no Reserved Font Name. Copyright 2012 Google Inc. All Rights Reserved; (c) 2017-2024 Adobe. Full license in noto-serif-kr/LICENSE.
+The @font-face rules in site.css follow the package's 300.css and 400.css (same unicode-range), pointing at these files.
