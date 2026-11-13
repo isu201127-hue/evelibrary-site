@@ -123,10 +123,13 @@ if(tunnel&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&!document.do
   // 빛: 멀리 있을 때는 천천히, 가까워질수록 빨리 커지고(예전과 같은 곡선), 노출은 뒤로 갈수록 오른다
   const R=far*.025*Math.pow(80,clamp(p/.72)),expo=2.4+9*smooth(.42,.74,p);
   if(glow>.01){
-   let X=1;while(X<40&&tone(expo*spread(X))>.006)X*=1.25;
+   let X=1;while(X<40&&tone(expo*spread(X))>.002)X*=1.25;
    const E=Math.min(R*X,far*1.6),g=ctx.createRadialGradient(cx,cy,0,cx,cy,E);
+   // 빛은 그리는 네모의 끝(E)에서 정확히 0이 되게 한다(끝의 값을 덜어 낸다). 그러지 않으면 네모 밖과 안의 차이가
+   // 어둠 위에 엷은 네모 테두리로 보인다. 네모가 화면보다 크면 덜지 않는다
+   const Le=R*X>far*1.6?0:tone(expo*spread(E/R));
    for(let i=0;i<=36;i++){const s=(i/36)**2,L=tone(expo*spread(s*E/R)),k=Math.pow(L,1.2);
-    g.addColorStop(s,'rgba('+Math.round(COOL[0]+(WHITE[0]-COOL[0])*k)+','+Math.round(COOL[1]+(WHITE[1]-COOL[1])*k)+','+Math.round(COOL[2]+(WHITE[2]-COOL[2])*k)+','+(L*glow).toFixed(3)+')')}
+    g.addColorStop(s,'rgba('+Math.round(COOL[0]+(WHITE[0]-COOL[0])*k)+','+Math.round(COOL[1]+(WHITE[1]-COOL[1])*k)+','+Math.round(COOL[2]+(WHITE[2]-COOL[2])*k)+','+(Math.max(0,(L-Le)/(1-Le))*glow).toFixed(3)+')')}
    const x0=Math.max(0,cx-E),y0=Math.max(0,cy-E);
    ctx.fillStyle=g;ctx.fillRect(x0,y0,Math.min(W,cx+E)-x0,Math.min(H,cy+E)-y0);
   }
