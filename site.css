@@ -941,3 +941,12 @@ button.card-link:focus-visible::after{outline:2px solid var(--blue-deep);outline
 .product h3{font-size:clamp(1.25rem,1rem + 1vw,1.75rem)}
 @media(prefers-color-scheme:dark){.product-art .folio{color:#efefef}}
 html[data-forced-dark] .product-art .folio{color:#efefef}
+
+@media(max-width:719px){
+  .concept-photo img{aspect-ratio:4/5}
+}
+
+@media(prefers-color-scheme:dark){
+  .concept-photo img{filter:brightness(.85)}
+}
+html[data-forced-dark] .concept-photo img{filter:brightness(.85)}
