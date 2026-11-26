@@ -43,24 +43,51 @@ if(sheet){
   others().forEach(el=>{el.inert=true});
   $('pv-close').focus({preventScroll:true});
  };
- const closeSheet=()=>{
+ const hideSheet=()=>{
   if(!root.hasAttribute('data-pv-open'))return;
   root.removeAttribute('data-pv-open');others().forEach(el=>{el.inert=false});
   $('pv-num').style.viewTransitionName=''; // 이름을 카드의 숫자에게 돌려준다
   sheet.style.transform='';if(opener)opener.focus({preventScroll:true});
  };
- document.querySelectorAll('.product .card-link').forEach(link=>link.addEventListener('click',e=>{
-  if(e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return; // 새 탭으로 열기 등은 그대로 둔다
-  e.preventDefault();openSheet(link);
- }));
+ // 주소 끝의 번호(#213)가 그 향의 한 장과 이어진다. 열려 있는 동안은 주소에 번호가 보이고(그대로 복사해 보낼 수 있게), 닫으면 사라진다.
+ // 카드를 눌러 열면 기록이 한 칸 생겨 뒤로 가기로 닫히고, "다음 페이지"는 그 칸의 번호만 바꾼다.
  const cardLinks=[...document.querySelectorAll('.product .card-link')],nextBtn=$('pv-next');
+ const fromHash=()=>{const m=/^#(\d{3})$/.exec(location.hash);return m&&cardLinks.find(l=>l.id==='product-'+m[1])};
+ const mark=(link,push)=>{
+  const h='#'+link.id.slice(8);if(location.hash===h)return;
+  if(push)history.pushState({pv:1},'',h);else history.replaceState(history.state,'',h);
+ };
+ const closeSheet=()=>{
+  if(!root.hasAttribute('data-pv-open'))return;
+  hideSheet();
+  if(history.state&&history.state.pv)history.back(); // 카드를 눌러 생긴 칸이면 그 칸을 걷는다
+  else if(/^#\d{3}$/.test(location.hash))history.replaceState(history.state,'',location.pathname+location.search);
+ };
+ // 주소의 번호를 손으로 바꾸면 브라우저가 초점을 페이지로 되돌리므로, 그 뒤에 한 장 안으로 다시 넣는다
+ const keep=()=>{if(root.hasAttribute('data-pv-open')&&!sheet.contains(document.activeElement))$('pv-close').focus({preventScroll:true})};
+ const follow=()=>{const link=fromHash();if(link){openSheet(link);setTimeout(keep,0)}else hideSheet()};
+ cardLinks.forEach(link=>link.addEventListener('click',e=>{
+  if(e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return; // 새 탭으로 열기 등은 그대로 둔다
+  e.preventDefault();openSheet(link);mark(link,true);
+ }));
  if(nextBtn)nextBtn.addEventListener('click',()=>{
   const next=cardLinks[(cardLinks.indexOf(opener)+1)%cardLinks.length];
-  openSheet(next);sheet.querySelector('.pv-body').scrollTop=0;nextBtn.focus({preventScroll:true});
+  openSheet(next);mark(next,false);sheet.querySelector('.pv-body').scrollTop=0;nextBtn.focus({preventScroll:true});
  });
  scrim.addEventListener('click',closeSheet);$('pv-close').addEventListener('click',closeSheet);
  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet()});
- window.addEventListener('pageshow',e=>{if(e.persisted)closeSheet()}); // 뒤로 가기로 돌아왔을 때 열린 채 남지 않게
+ window.addEventListener('popstate',follow);
+ window.addEventListener('pageshow',e=>{if(e.persisted)follow()}); // 뒤로 가기로 돌아왔을 때는 주소에 맞춘다
+ // 번호 주소로 들어오면 그 향의 줄로 가서 한 장을 연다. 닫으면 그 줄에 있다
+ if(history.state&&history.state.pv)history.replaceState(null,''); // 새로 고친 뒤에는 걷을 칸이 없다
+ const first=fromHash();
+ if(first){
+  const place=()=>document.getElementById(first.id.slice(8)).scrollIntoView({block:'start',behavior:'instant'});
+  place();openSheet(first);
+  // 브라우저도 주소 끝의 번호를 따라 한 번 더 옮기며 초점을 페이지로 되돌린다. 다 읽은 뒤에 자리와 초점을 다시 맞춘다
+  const settle=()=>{if(opener!==first||!root.hasAttribute('data-pv-open'))return;place();keep()};
+  if(document.readyState==='complete')setTimeout(settle,0);else addEventListener('load',()=>setTimeout(settle,0),{once:true});
+ }
 
  // 끌어서 닫기: 끄는 동안 1:1, 놓은 속도로 도착점을 예측, 위쪽 경계는 부드럽게 저항
  const project=(v,d=.998)=>(v/1000)*d/(1-d),rubber=(over,dim,c=.55)=>(over*dim*c)/(dim+c*Math.abs(over));
@@ -122,6 +149,7 @@ if(tunnel&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&!document.do
  };
  const paint=(p,t,step,dark)=>{
   ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,W,H);
+  if(!W||!H)return;
   const cx=W/2,cy=H/2,far=Math.max(W,H);
   // 화면이 어두운 기기에서는 빛이 화면을 다 덮기 전에 잦아든다(끝이 어두운 화면이라서)
   const glow=dark?.9*(1-smooth(.4,.7,p)):1;
@@ -206,13 +234,13 @@ if(tunnel&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&!document.do
  };
  if(!root.classList.contains('js-tunnel'))root.classList.add('js-tunnel','tunnel-late');
  root.classList.add('tunnel-on');
+ addEventListener('scroll',request,{passive:true});
+ addEventListener('resize',()=>{size();request()});
+ addEventListener('pageshow',e=>{if(e.persisted)request()});
+ document.addEventListener('visibilitychange',()=>{if(!document.hidden)request()});
  size();
  if(root.classList.contains('tunnel-late')){
   // 브라우저가 스크롤 자리를 되돌린 뒤에 그린다. 첫 화면의 글은 숨기지 않는다.
   arrived=true;addEventListener('load',()=>setTimeout(draw,0));
  }else{copy.classList.add('wait');draw()}
- addEventListener('scroll',request,{passive:true});
- addEventListener('resize',()=>{size();request()});
- addEventListener('pageshow',e=>{if(e.persisted)request()});
- document.addEventListener('visibilitychange',()=>{if(!document.hidden)request()});
 }
