@@ -46,3 +46,9 @@ noto-serif-kr-{0-119,latin,latin-ext,cyrillic,vietnamese}-{300,400}-normal.woff2
 Each file checked against the SHA256 in https://data.jsdelivr.com/v1/packages/npm/@fontsource/noto-serif-kr@5.3.1?structure=flat (all equal).
 Unmodified binaries. OFL-1.1, no Reserved Font Name. Copyright 2012 Google Inc. All Rights Reserved; (c) 2017-2024 Adobe. Full license in noto-serif-kr/LICENSE.
 The @font-face rules in site.css follow the package's 300.css and 400.css (same unicode-range), pointing at these files.
+
+Cut down to the characters used on this site and renamed (2026-11-27), made with fontTools from the unmodified files above (outlines, metrics, hinting and layout tables kept; only unused characters left out):
+- EVESans-Regular.woff2, EVESans-Medium.woff2, EVESans-Light.woff2, font name "EVE Sans": from SUIT 2.040 (SUNN, https://sun.fo/suit/, SUIT-Regular/Medium/Light.woff2 listed above), renamed because "SUIT" is a Reserved Font Name. Licence: LICENSE-SUIT.txt.
+- EVEMono-Regular-latin.woff2, font name "EVE Mono": from IBM Plex Mono 2.3 Regular, latin subset (IBM Corp., IBMPlexMono-Regular-latin.woff2 listed above), renamed because "Plex" is a Reserved Font Name. Licence: LICENSE-IBMPLEXMONO.txt.
+- InstrumentSerif-Regular-latin.woff2, Gelasio-Regular-latin.woff2 and the 46 Noto Serif KR pieces that hold such characters: same names (no Reserved Font Name in their licences).
+The SHA256 lines above are those of the unmodified files. The licences are unchanged and stay next to the fonts.

@@ -1,10 +1,10 @@
 /* EVE LIBRARY */
 
-@font-face{font-family:'SUIT';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/SUIT-Regular.woff2') format('woff2')}
-@font-face{font-family:'SUIT';font-style:normal;font-weight:500;font-display:swap;src:url('fonts/SUIT-Medium.woff2') format('woff2')}
-@font-face{font-family:'SUIT';font-style:normal;font-weight:300;font-display:swap;src:url('fonts/SUIT-Light.woff2') format('woff2')}
+@font-face{font-family:'EVE Sans';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/EVESans-Regular.woff2') format('woff2')}
+@font-face{font-family:'EVE Sans';font-style:normal;font-weight:500;font-display:swap;src:url('fonts/EVESans-Medium.woff2') format('woff2')}
+@font-face{font-family:'EVE Sans';font-style:normal;font-weight:300;font-display:swap;src:url('fonts/EVESans-Light.woff2') format('woff2')}
 /* 영문 전용 두 가지. 작은 라벨과 PAGE 코드는 타자기체, 향 이름과 슬로건과 숫자는 세리프. 라틴 문자와 숫자만 담았다. */
-@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/IBMPlexMono-Regular-latin.woff2') format('woff2')}
+@font-face{font-family:'EVE Mono';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/EVEMono-Regular-latin.woff2') format('woff2')}
 @font-face{font-family:'Gelasio';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/Gelasio-Regular-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 @font-face{font-family:'Instrument Serif';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/InstrumentSerif-Regular-latin.woff2') format('woff2')}
 @font-face{font-family:'Noto Serif KR';font-style:normal;font-weight:300;font-display:swap;src:url('fonts/noto-serif-kr/noto-serif-kr-0-300-normal.woff2') format('woff2');unicode-range:U+f9ca-fa0b,U+ff03-ff05,U+ff07,U+ff0a-ff0b,U+ff0d-ff19,U+ff1b,U+ff1d,U+ff20-ff5b,U+ff5d,U+ffe0-ffe3,U+ffe5-ffe6}
@@ -267,9 +267,9 @@
   --line-soft:#dcddde;
   --blue:#7daed3;
   --blue-deep:#254f72;
-  --sans:'SUIT','Apple SD Gothic Neo','Malgun Gothic',Arial,sans-serif;
+  --sans:'EVE Sans','Apple SD Gothic Neo','Malgun Gothic',Arial,sans-serif;
   --serif:'Instrument Serif',Georgia,'Times New Roman',serif;
-  --mono:'IBM Plex Mono','SUIT','Apple SD Gothic Neo','Malgun Gothic',monospace;
+  --mono:'EVE Mono','EVE Sans','Apple SD Gothic Neo','Malgun Gothic',monospace;
   --gutter:clamp(1.25rem,5.5vw,5rem);
   --max:1360px;
   --pad:max(var(--gutter),calc((100vw - var(--max)) / 2));
