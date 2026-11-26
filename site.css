@@ -1001,3 +1001,5 @@ header nav a[aria-current="page"]{background-size:100% 1px}
 .story .ln{display:block}
 .subtitle-list h3 .scene span{display:inline;margin:0;font:inherit;color:inherit;letter-spacing:inherit}
 @media(max-width:719px){.subtitle-list h3 .scene span{display:block}}
+.ph{display:inline-block}
+.ln{display:block}

@@ -39,7 +39,8 @@ if(sheet){
   $('pv-code').textContent=code;$('pv-name').textContent=name;$('pv-num').textContent=code.replace('PAGE_','');
   $('pv-num').style.viewTransitionName='page-'+code.replace('PAGE_',''); // 열려 있는 동안은 이 숫자가 그 이름을 갖는다
   $('pv-scene').textContent=card.querySelector('.card-scene').textContent.trim();
-  $('pv-text').textContent=card.dataset.note||'';
+  const note=card.querySelector('template.card-note'); // 구절로 나눈 사본이 있으면 그것을 쓴다(줄이 뜻이 끊기는 곳에서만 꺾이게)
+  $('pv-text').replaceChildren(note?note.content.cloneNode(true):document.createTextNode(card.dataset.note||''));
   sheet.style.transform='';root.setAttribute('data-pv-open','');
   others().forEach(el=>{el.inert=true});
   $('pv-close').focus({preventScroll:true});
