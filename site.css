@@ -1003,3 +1003,14 @@ header nav a[aria-current="page"]{background-size:100% 1px}
 @media(max-width:719px){.subtitle-list h3 .scene span{display:block}}
 .ph{display:inline-block}
 .ln{display:block}
+/* 브랜드 이야기: 둘째·셋째 장의 문장을 제목과 같이 가운데로 */
+#why-number .chapter-body>p,#five-pages .chapter-body>p{text-align:center}
+/* 브랜드 이야기: 다섯 페이지 줄, 장면 안내 줄, 넷째 장과 맺는 줄도 가운데로(왼쪽 맞춤으로 되돌리려면 이 묶음만 지운다) */
+.subtitle-list article{grid-template-columns:minmax(0,1fr);justify-items:center;text-align:center}
+.subtitle-list .eyebrow{grid-row:auto;margin:0 0 .4rem}
+.subtitle-list article>*,.subtitle-list .story-product{grid-column:1}
+.subtitle-list .story-product{justify-self:center}
+#five-pages .story-footnote,#origin .chapter-body{text-align:center}
+.story .longread summary{justify-content:center}
+.story .longread p{margin-left:auto;margin-right:auto}
+/* 묶음 끝 */
