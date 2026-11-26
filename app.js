@@ -53,6 +53,11 @@ if(sheet){
   if(e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return; // 새 탭으로 열기 등은 그대로 둔다
   e.preventDefault();openSheet(link);
  }));
+ const cardLinks=[...document.querySelectorAll('.product .card-link')],nextBtn=$('pv-next');
+ if(nextBtn)nextBtn.addEventListener('click',()=>{
+  const next=cardLinks[(cardLinks.indexOf(opener)+1)%cardLinks.length];
+  openSheet(next);sheet.querySelector('.pv-body').scrollTop=0;nextBtn.focus({preventScroll:true});
+ });
  scrim.addEventListener('click',closeSheet);$('pv-close').addEventListener('click',closeSheet);
  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet()});
  window.addEventListener('pageshow',e=>{if(e.persisted)closeSheet()}); // 뒤로 가기로 돌아왔을 때 열린 채 남지 않게
