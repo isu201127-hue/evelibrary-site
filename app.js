@@ -30,9 +30,10 @@ if(sheet){
  const root=document.documentElement,scrim=document.querySelector('#pv-scrim'),zone=sheet.querySelector('.pv-drag');
  const $=id=>document.getElementById(id);
  const others=()=>[...document.body.children].filter(el=>el!==sheet&&el!==scrim&&el.tagName!=='SCRIPT');
- let opener=null;
+ let opener=null,pinned=null; // pinned: 번호 주소로 열린 그 한 장(닫거나 다른 향으로 넘기면 풀린다)
  sheet.hidden=false;scrim.hidden=false; // 이제부터는 CSS(visibility·transform)가 감춘다
  const openSheet=link=>{
+  if(link!==pinned)pinned=null;
   const card=link.closest('.product');opener=link;
   const code=card.querySelector('.product-meta span').textContent.trim(),name=card.querySelector('h3').textContent.trim();
   $('pv-code').textContent=code;$('pv-name').textContent=name;$('pv-num').textContent=code.replace('PAGE_','');
@@ -45,6 +46,7 @@ if(sheet){
  };
  const hideSheet=()=>{
   if(!root.hasAttribute('data-pv-open'))return;
+  pinned=null;
   root.removeAttribute('data-pv-open');others().forEach(el=>{el.inert=false});
   $('pv-num').style.viewTransitionName=''; // 이름을 카드의 숫자에게 돌려준다
   sheet.style.transform='';if(opener)opener.focus({preventScroll:true});
@@ -83,9 +85,12 @@ if(sheet){
  const first=fromHash();
  if(first){
   const place=()=>document.getElementById(first.id.slice(8)).scrollIntoView({block:'start',behavior:'instant'});
-  place();openSheet(first);
+  place();openSheet(first);pinned=first;
   // 브라우저도 주소 끝의 번호를 따라 한 번 더 옮기며 초점을 페이지로 되돌린다. 다 읽은 뒤에 자리와 초점을 다시 맞춘다
-  const settle=()=>{if(opener!==first||!root.hasAttribute('data-pv-open'))return;place();keep()};
+  const settle=()=>{if(pinned!==first)return;place();keep()};
+  // 열려 있는 동안 창 크기가 늦게 바뀌면(주소창·위아래 띠가 정리될 때, 화면을 돌릴 때) 줄 자리가 밀리므로 다시 맞춘다.
+  // 브라우저는 resize를 그림 한 번에 한 번만 보낸다
+  addEventListener('resize',()=>{if(pinned===first)place()});
   if(document.readyState==='complete')setTimeout(settle,0);else addEventListener('load',()=>setTimeout(settle,0),{once:true});
  }
 

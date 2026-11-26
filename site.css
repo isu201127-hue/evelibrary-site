@@ -982,3 +982,5 @@ body:has(#pv-sheet[hidden]) button.card-link{display:none}
 .product{grid-template-columns:clamp(min(7.5rem,34vw),22vw,12rem) minmax(0,1fr)}
 .folio strong{font-size:clamp(min(3.75rem,17vw),11vw,6.5rem)}
 @media(max-width:359px){.product{grid-template-columns:min(6rem,30vw) minmax(0,1fr);column-gap:1rem}}
+.story-close{margin-top:clamp(2rem,4vw,3rem)}
+header nav a[aria-current="page"]{background-size:100% 1px}
