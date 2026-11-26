@@ -116,6 +116,13 @@ if(sheet){
  });
 }
 
+// 인스타그램 띠의 그림은 띠에 가까워졌을 때 받는다(처음 열 때 받는 양을 늘리지 않게). 스크립트가 없으면 noscript의 그림이 보인다
+const igList=document.querySelector('.ig-list');
+if(igList){
+ const load=()=>{igList.querySelectorAll('source[data-srcset]').forEach(s=>{s.srcset=s.dataset.srcset;s.removeAttribute('data-srcset')});igList.querySelectorAll('img[data-src]').forEach(i=>{i.src=i.dataset.src;i.removeAttribute('data-src')})};
+ if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting)){io.disconnect();load()}},{rootMargin:'600px 0px'});io.observe(igList)}else load();
+}
+
 // 첫 화면을 여는 빛(홈 화면에만 있다). 스크롤은 그대로 두고, 화면 위에 얹은 한 겹의 빛만 바꾼다.
 // 이 스크립트가 4초 안에 준비되지 않으면 화면의 머리 부분에 있는 짧은 스크립트가 이 겹을 치우고 tunnel-off 를 남긴다.
 // 빛은 카메라로 찍은 빛처럼(노출이 오르며 중심이 하얗게 날아가고 둘레로 번진다), 먼지는 공기 중에 떠 있는 입자처럼 그린다.
